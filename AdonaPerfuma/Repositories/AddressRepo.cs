@@ -16,7 +16,9 @@ namespace AdonaPerfuma.Repositories
 
         public async Task<int> AddAddress(Address address)
         {
-           var id=await _context.AddAsync(address);
+            await _context.Addresses.AddAsync(address);
+            await _context.SaveChangesAsync();
+
             return address.Id;
         }
 
@@ -29,7 +31,7 @@ namespace AdonaPerfuma.Repositories
            
         }
 
-        public async Task<Address> GetAddresstById(int id)
+        public async Task<Address> GetAddressById(int id)
         {
             var address = await _context.Addresses.FindAsync(id);
             if (address != null)

@@ -7,7 +7,7 @@ namespace AdonaPerfuma.Interfaces
 {
     public interface IAddressRepo
     {
-        public Task<Address> GetAddresstById(int id);
+        public Task<Address> GetAddressById(int id);
 
         public Task<int> AddAddress(Address address);
 

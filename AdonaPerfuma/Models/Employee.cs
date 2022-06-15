@@ -39,7 +39,7 @@ namespace AdonaPerfuma.Models
         public DateTime EndDate { get; set; } 
 
         [Required]
-        public BankAccount bankAccount { get; set; }
+        public BankAccount BankAccount { get; set; }
 
         [Required]
         public double SalaryPerHour { get; set; }
@@ -54,6 +54,9 @@ namespace AdonaPerfuma.Models
 
         [Required]
         public UserTypes User { get; set; }
+
+        [Required]
+        public Address Address { get; set; }
     }
 
     public enum JopType

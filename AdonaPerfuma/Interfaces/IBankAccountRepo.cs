@@ -1,5 +1,4 @@
 ﻿using AdonaPerfuma.Models;
-using Microsoft.AspNetCore.JsonPatch;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -11,7 +10,7 @@ namespace AdonaPerfuma.Interfaces
 
         public Task<BankAccount> GetAccountById(int id);
 
-        public Task<int> AddAccount(BankAccount bankAccount);
+        public Task AddAccount(BankAccount bankAccount);
 
         public Task UpdateAccount(int id,BankAccount modifiedAccount);
 
