@@ -9,7 +9,7 @@ namespace AdonaPerfuma.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles ="Admin")]
+    //[Authorize(Roles ="Admin")]
     public class CreditCardsController : ControllerBase
     {
         private readonly ICreditCardRepo _repo;

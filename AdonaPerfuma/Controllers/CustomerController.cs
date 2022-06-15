@@ -34,7 +34,7 @@ namespace AdonaPerfuma.Controllers
         }
 
         [HttpPut("{id}")]
-        [Authorize(Roles ="Admin,Customer")]
+        //[Authorize(Roles ="Admin,Customer")]
         public async Task<IActionResult> UpdateCustomer([FromRoute] int id, [FromBody] Customer customer)
         {
             await _repo.UpdateCustomer(id, customer);
@@ -42,7 +42,7 @@ namespace AdonaPerfuma.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin,Customer,Manager")]
+        //[Authorize(Roles = "Admin,Customer,Manager")]
         public async Task<IActionResult> DeleteCustomer(int id)
         {
             await _repo.DeleteCustomer(id);

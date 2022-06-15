@@ -8,7 +8,7 @@ namespace AdonaPerfuma.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles ="Admin,Manager")]
+    //[Authorize(Roles ="Admin,Manager")]
     public class AddressesController : ControllerBase
     {
         private readonly IAddressRepo _repo;
