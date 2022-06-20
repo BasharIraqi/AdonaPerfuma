@@ -6,14 +6,14 @@ namespace AdonaPerfuma.Interfaces
 {
     public interface IBankAccountRepo
     {
-        public Task<List<BankAccount>> GetAccounts();
+        Task<List<BankAccount>> GetAccounts();
 
-        public Task<BankAccount> GetAccountById(int id);
+        Task<BankAccount> GetAccountById(int id);
 
-        public Task AddAccount(BankAccount bankAccount);
+        Task AddAccount(BankAccount bankAccount);
 
-        public Task UpdateAccount(int id,BankAccount modifiedAccount);
+        Task UpdateAccount(int id,BankAccount modifiedAccount);
 
-        public Task DeleteAccount(int id);
+        Task DeleteAccount(int id);
     }
 }

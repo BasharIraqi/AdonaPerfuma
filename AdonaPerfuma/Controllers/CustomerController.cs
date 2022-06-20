@@ -19,15 +19,15 @@ namespace AdonaPerfuma.Controllers
             _repo = repo;
         }
         [HttpGet]
-        [Authorize(Roles ="Admin,Manager,General")]
-        public async Task<IActionResult> GetCustomers()
+        //[Authorize(Roles ="Admin,Manager,General")]
+        public async Task<IActionResult> GetAllCustomers()
         {
             var customers = await _repo.GetCustomers();
             return Ok(customers);
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetCustomer(int id)
+        public async Task<IActionResult> GetCustomer([FromRoute]int id)
         {
             var customer = await _repo.GetCustomerById(id);
             return Ok(customer);

@@ -6,12 +6,12 @@ namespace AdonaPerfuma.Interfaces
 {
     public interface ICreditCardRepo
     {
-        public Task<List<CreditCard>> GetAllCards();
+        Task<List<CreditCard>> GetAllCards();
 
-        public Task<CreditCard> GetCreditCardByNumber(int number);
+        Task<CreditCard> GetCreditCardByNumber(int number);
 
-        public Task<int> AddCreditCard(CreditCard creditCard);
+        Task<int> AddCreditCard(CreditCard creditCard);
 
-        public Task DeleteCreditCard(int id);
+        Task DeleteCreditCard(int id);
     }
 }

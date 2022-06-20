@@ -2,24 +2,14 @@ using AdonaPerfuma.DB;
 using AdonaPerfuma.Interfaces;
 using AdonaPerfuma.Models;
 using AdonaPerfuma.Repositories;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AdonaPerfuma
 {
@@ -70,8 +60,8 @@ namespace AdonaPerfuma
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "AdonaPerfuma", Version = "v1" });
             });
 
-            services.AddScoped<IOrderRepo, OrderRepo>();
             services.AddScoped<IProductRepo, ProductRepo>();
+            services.AddScoped<IOrderRepo, OrderRepo>();
             services.AddScoped<IAddressRepo, AddressRepo>();
             services.AddScoped<IBankAccountRepo, BankAccountRepo>();
             services.AddScoped<ICreditCardRepo, CreditCardRepo>();
@@ -80,13 +70,13 @@ namespace AdonaPerfuma
 
 
 
-            services.AddCors(options =>
-            {
-                options.AddDefaultPolicy(builder =>
-                {
-                    builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
-                });
-            });
+            //services.AddCors(options =>
+            //{
+            //    options.AddDefaultPolicy(builder =>
+            //    {
+            //        builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+            //    });
+            //});
         }
 
 
@@ -105,9 +95,11 @@ namespace AdonaPerfuma
 
             app.UseRouting();
 
-            app.UseCors();
+            //app.UseCors();
+            
             app.UseAuthentication();
-            app.UseAuthorization();
+            
+           // app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

@@ -24,7 +24,7 @@ namespace AdonaPerfuma.Controllers
             return Ok(accounts);
         }
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetAccount(int id)
+        public async Task<IActionResult> GetAccount([FromRoute] int id)
         {
             var account =await _repo.GetAccountById(id);
             if(account == null)

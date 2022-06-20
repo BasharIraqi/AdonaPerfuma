@@ -16,7 +16,8 @@ namespace AdonaPerfuma.Models
         [Required]
         public List<Product> Products { get; set; }
 
-        public int NumberOfProducts { get { return NumberOfProducts; } set {NumberOfProducts= Products.Count; } }
+        [Required]
+        public int NumberOfProducts { get; set; }
 
         [DataType(DataType.Currency)]
         public double PaymentValue { get; set; }

@@ -1,8 +1,5 @@
 ﻿using AdonaPerfuma.Interfaces;
 using AdonaPerfuma.Models;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -13,7 +10,6 @@ namespace AdonaPerfuma.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly IProductRepo _repo;
-
         public ProductsController(IProductRepo repo)
         {
             _repo = repo;
@@ -22,7 +18,8 @@ namespace AdonaPerfuma.Controllers
         [HttpGet]
         public async Task<IActionResult> GetProducts()
         {
-            var products = await _repo.GetProducts();
+            var products = await _repo.GetAllProducts();
+            
             if(products == null)
             {
                 return NotFound();
@@ -30,7 +27,7 @@ namespace AdonaPerfuma.Controllers
             return Ok(products);
         }
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetProduct(int id)
+        public async Task<IActionResult> GetProduct([FromRoute] int id)
         {
             var product = await _repo.GetProductById(id);
             if(product == null)
@@ -42,11 +39,11 @@ namespace AdonaPerfuma.Controllers
 
         [HttpPost]
         //[Authorize(Roles = "Admin,Manager")]
-        public async Task<IActionResult> AddProduct(Product product)
+        public async Task<IActionResult> AddProduct([FromBody] Product product)
         {
-           var id=await _repo.AddProduct(product);
+            await _repo.AddProduct(product);
 
-            return CreatedAtAction(nameof(GetProduct), new { id = id, controller = "product" }, id);
+            return Ok();
         }
 
         [HttpPut("{id}")]

@@ -29,7 +29,7 @@ namespace AdonaPerfuma.Controllers
 
         [HttpGet("{id}")]
         //[Authorize(Roles = "Admin,Manager,General,Customer")]
-        public async Task<IActionResult> GetOrder(int id)
+        public async Task<IActionResult> GetOrder([FromRoute] int id)
         {
             var order = await _repo.GetOrder(id);
 

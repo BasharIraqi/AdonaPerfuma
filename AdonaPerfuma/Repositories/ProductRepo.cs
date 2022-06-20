@@ -16,12 +16,10 @@ namespace AdonaPerfuma.Repositories
         {
             _context = context;
         }
-        public async Task<int> AddProduct(Product product)
+        public async Task AddProduct(Product product)
         {
            await _context.Products.AddAsync(product);
             await _context.SaveChangesAsync();
-            return product.Barcode;
-
         }
 
         public async Task DeleteProduct(int id)
@@ -46,11 +44,16 @@ namespace AdonaPerfuma.Repositories
             return null;
         }
 
-        public async Task<List<Product>> GetProducts()
+        public async Task<List<Product>> GetAllProducts()
         {
             var products = await _context.Products.ToListAsync();
+            
+            if (products != null)
+            {
+                return products;
+            }
 
-            return products;
+            return null;
         }
 
         public async Task UpdateProduct(int id, Product modifiedProduct)

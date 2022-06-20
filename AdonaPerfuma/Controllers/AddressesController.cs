@@ -18,7 +18,7 @@ namespace AdonaPerfuma.Controllers
             _repo = repo;
         }
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetAddress(int id)
+        public async Task<IActionResult> GetAddress([FromRoute]int id)
         {
             var address =await _repo.GetAddressById(id);
             if (address == null)

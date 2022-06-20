@@ -4,14 +4,16 @@ using AdonaPerfuma.DB;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AdonaPerfuma.Migrations
 {
     [DbContext(typeof(PerfumaContext))]
-    partial class PerfumaContextModelSnapshot : ModelSnapshot
+    [Migration("20220618092647_update-tables")]
+    partial class updatetables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -202,16 +204,14 @@ namespace AdonaPerfuma.Migrations
                     b.Property<DateTime>("StartedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("User")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AddressId");
 
                     b.HasIndex("BankAccountAccountNumber");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Employees");
                 });
@@ -247,9 +247,9 @@ namespace AdonaPerfuma.Migrations
 
             modelBuilder.Entity("AdonaPerfuma.Models.Product", b =>
                 {
-                    b.Property<long>("Barcode")
+                    b.Property<int>("Barcode")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("ImageUrl")
@@ -512,15 +512,9 @@ namespace AdonaPerfuma.Migrations
                         .WithMany()
                         .HasForeignKey("BankAccountAccountNumber");
 
-                    b.HasOne("AdonaPerfuma.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
                     b.Navigation("Address");
 
                     b.Navigation("BankAccount");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("AdonaPerfuma.Models.Order", b =>

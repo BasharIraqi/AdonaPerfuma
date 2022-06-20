@@ -53,7 +53,7 @@ namespace AdonaPerfuma.Models
         public JopType JobType { get; set; }
 
         [Required]
-        public UserTypes User { get; set; }
+        public User User { get; set; }
 
         [Required]
         public Address Address { get; set; }

@@ -26,7 +26,7 @@ namespace AdonaPerfuma.Controllers
             return Ok(cards);
         }
         [HttpGet("{cardNumber}")]
-        public async Task<IActionResult> GetCard(int cardNumber)
+        public async Task<IActionResult> GetCard([FromRoute] int cardNumber)
         {
             var card = await _repo.GetCreditCardByNumber(cardNumber);
             return Ok(card);

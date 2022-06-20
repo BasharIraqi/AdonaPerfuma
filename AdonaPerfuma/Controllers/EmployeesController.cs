@@ -26,7 +26,7 @@ namespace AdonaPerfuma.Controllers
         }
         [HttpGet("{id}")]
         //[Authorize(Roles = "Admin,Manager")]
-        public async Task<IActionResult> GetEmployee(int id)
+        public async Task<IActionResult> GetEmployee([FromRoute] int id)
         {
             var employee = await _repo.GetEmployeeById(id);
             if (employee == null)

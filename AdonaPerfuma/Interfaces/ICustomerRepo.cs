@@ -6,14 +6,14 @@ namespace AdonaPerfuma.Interfaces
 {
     public interface ICustomerRepo
     {
-        public Task<List<Customer>> GetCustomers();
+        Task<List<Customer>> GetCustomers();
 
-        public Task<Customer> GetCustomerById(int id);
+        Task<Customer> GetCustomerById(int id);
 
-        public Task<int> AddCustomer(Customer customer);
+        Task<int> AddCustomer(Customer customer);
 
-        public Task UpdateCustomer(int id, Customer modifiedCustomer);
+        Task UpdateCustomer(int id, Customer modifiedCustomer);
 
-        public Task DeleteCustomer(int id);
+        Task DeleteCustomer(int id);
     }
 }

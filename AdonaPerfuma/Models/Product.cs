@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace AdonaPerfuma.Models
 {
@@ -6,8 +7,8 @@ namespace AdonaPerfuma.Models
     {
         [Required]
         [Key]
-        [Range(6,12)]
-        public int Barcode { get; set; }
+        [Range(6, 16)]
+        public long Barcode { get; set; }
 
         [Required]
         public string Name { get; set; }
@@ -16,18 +17,13 @@ namespace AdonaPerfuma.Models
         public int Stock { get; set; }
 
         [Required]
-        public bool IsInStock 
-        {
-            get
-            {
-                return IsInStock;
-            }
-            set {
-                if (Stock == 0)
-                    IsInStock = false;
-                else
-                    IsInStock = true;
-            }
-        }
+        public bool IsInStock { get; set; }
+
+        [Required]
+        public string ImageUrl { get; set; }
+        
+        [Required]
+        public double Price { get; set; }
+
     }
 }
