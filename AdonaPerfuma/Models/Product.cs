@@ -28,5 +28,19 @@ namespace AdonaPerfuma.Models
         [Required]
         public double Price { get; set; }
 
+        public Categories Category { get; set; }
+
+    }
+
+    public enum Categories
+    {
+        MenPerfumes,
+        WomenPerfumes,
+        UnisexPerfumes,
+        MenBoutiqePerfumes,
+        WomenBoutiqePerfumes,
+        UnisexBoutiqePerfumes,
+        MenSet,
+        WomenSet
     }
 }
