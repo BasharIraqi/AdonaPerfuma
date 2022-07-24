@@ -27,7 +27,7 @@ namespace AdonaPerfuma.Controllers
             return Ok(products);
         }
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetProduct([FromRoute] int id)
+        public async Task<IActionResult> GetProduct([FromRoute] long id)
         {
             var product = await _repo.GetProductById(id);
             if(product == null)
@@ -48,7 +48,7 @@ namespace AdonaPerfuma.Controllers
 
         [HttpPut("{id}")]
         //[Authorize(Roles = "Admin,Manager")]
-        public async Task<IActionResult> UpdateProduct([FromRoute] int id, [FromBody] Product modifiedProduct)
+        public async Task<IActionResult> UpdateProduct([FromRoute] long id, [FromBody] Product modifiedProduct)
         {
             await _repo.UpdateProduct(id, modifiedProduct);
            
@@ -57,7 +57,7 @@ namespace AdonaPerfuma.Controllers
 
         [HttpDelete("{id}")]
         //[Authorize(Roles = "Admin,Manager")]
-        public async Task<IActionResult> DeleteProduct(int id)
+        public async Task<IActionResult> DeleteProduct(long id)
         {
            var product=await _repo.GetProductById(id);
             if(product==null)

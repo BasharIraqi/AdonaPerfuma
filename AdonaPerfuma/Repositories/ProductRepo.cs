@@ -21,8 +21,8 @@ namespace AdonaPerfuma.Repositories
            await _context.Products.AddAsync(product);
             await _context.SaveChangesAsync();
         }
-
-        public async Task DeleteProduct(int id)
+        
+        public async Task DeleteProduct(long id)
         {
             var product=await _context.Products.FindAsync(id);
 
@@ -33,7 +33,7 @@ namespace AdonaPerfuma.Repositories
             }
         }
 
-        public async Task<Product> GetProductById(int id)
+        public async Task<Product> GetProductById(long id)
         {
             var product =await _context.Products.FindAsync(id);
 
@@ -56,7 +56,7 @@ namespace AdonaPerfuma.Repositories
             return null;
         }
 
-        public async Task UpdateProduct(int id, Product modifiedProduct)
+        public async Task UpdateProduct(long id, Product modifiedProduct)
         {
             var product = await _context.Products.FindAsync(id);
 
