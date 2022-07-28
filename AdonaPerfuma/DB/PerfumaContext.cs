@@ -18,6 +18,6 @@ namespace AdonaPerfuma.DB
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Product> Products { get; set; }
-        public override DbSet<User> Users { get; set; }
+        public  DbSet<User> AspNetUsers { get; set; }
     }
 }

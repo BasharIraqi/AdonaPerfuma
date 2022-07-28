@@ -70,6 +70,7 @@ namespace AdonaPerfuma
             services.AddScoped<ICreditCardRepo, CreditCardRepo>();
             services.AddScoped<ICustomerRepo, CustomerRepo>();
             services.AddScoped<IEmployeeRepo, EmployeeRepo>();
+            services.AddScoped<IUserRepo, UsersRepo>();
 
 
 

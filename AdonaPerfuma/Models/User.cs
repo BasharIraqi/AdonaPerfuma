@@ -25,5 +25,5 @@ namespace AdonaPerfuma.Models
       Admin,
       Manager,
       General,
-      Guest,
+      Customer,
     }
