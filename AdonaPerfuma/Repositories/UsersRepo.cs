@@ -16,7 +16,7 @@ namespace AdonaPerfuma.Repositories
 
         public async Task<User> GetUser(string email, string password)
         {
-            var find = await _context.AspNetUsers.FirstOrDefaultAsync(u => u.Email == email && u.Password == password);
+            var find = await _context.Users.FirstOrDefaultAsync(u => u.Email == email && u.Password == password);
             if (find != null)
             {
                 return find;
@@ -26,10 +26,10 @@ namespace AdonaPerfuma.Repositories
         
         public async Task<User> SetUser(User user)
         {
-            var find = await _context.AspNetUsers.FindAsync(user);
+            var find = await _context.Users.FindAsync(user);
             if (find == null)
             {
-                _context.AspNetUsers.Add(user);
+                _context.Users.Add(user);
                 await _context.SaveChangesAsync();
                 return find;
             }
