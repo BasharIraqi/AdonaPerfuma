@@ -1,6 +1,4 @@
 ﻿using AdonaPerfuma.Models;
-using Microsoft.AspNetCore.JsonPatch;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AdonaPerfuma.Interfaces

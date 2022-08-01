@@ -1,10 +1,9 @@
 ﻿using AdonaPerfuma.Models;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace AdonaPerfuma.DB
 {
-    public class PerfumaContext : IdentityDbContext<User>
+    public class PerfumaContext : DbContext
     {
         public PerfumaContext(DbContextOptions<PerfumaContext> options) : base(options)
         {
@@ -18,6 +17,6 @@ namespace AdonaPerfuma.DB
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Product> Products { get; set; }
-        public new DbSet<User> Users { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }

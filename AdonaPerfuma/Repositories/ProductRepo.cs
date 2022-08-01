@@ -1,7 +1,6 @@
 ﻿using AdonaPerfuma.DB;
 using AdonaPerfuma.Interfaces;
 using AdonaPerfuma.Models;
-using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
