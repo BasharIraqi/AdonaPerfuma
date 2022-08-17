@@ -14,5 +14,9 @@ namespace AdonaPerfuma.Interfaces
          Task UpdateProduct(long id,Product modifiedProduct);
 
          Task DeleteProduct(long id);
+
+        Task<List<string>> GetAllProductsBrands();
+
+        Task<List<Categories>> GetAllProductsCategories();
     }
 }

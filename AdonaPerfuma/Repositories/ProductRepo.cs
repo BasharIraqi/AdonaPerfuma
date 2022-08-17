@@ -3,6 +3,7 @@ using AdonaPerfuma.Interfaces;
 using AdonaPerfuma.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace AdonaPerfuma.Repositories
@@ -14,6 +15,17 @@ namespace AdonaPerfuma.Repositories
         public ProductRepo(PerfumaContext context)
         {
             _context = context;
+        }
+        public async Task<List<Categories>> GetAllProductsCategories()
+        {
+           var categories= await _context.Products.Select(p=>p.Category).Distinct().ToListAsync();
+
+            if(categories!=null)
+            {
+                return categories;
+            }
+            return null;
+
         }
         public async Task AddProduct(Product product)
         {
@@ -54,7 +66,17 @@ namespace AdonaPerfuma.Repositories
 
             return null;
         }
+        public async Task<List<string>> GetAllProductsBrands()
+        {
+            var products = await _context.Products.Select(p=>p.Name).Distinct().ToListAsync();
 
+            if (products != null)
+            {
+                return products;
+            }
+
+            return null;
+        }
         public async Task UpdateProduct(long id, Product modifiedProduct)
         {
             var product = await _context.Products.FindAsync(id);

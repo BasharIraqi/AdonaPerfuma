@@ -14,6 +14,29 @@ namespace AdonaPerfuma.Controllers
         {
             _repo = repo;
         }
+        [HttpGet("categories")]
+        public async Task<IActionResult> GetProductsCategories()
+        {
+            var categories = await _repo.GetAllProductsCategories();
+
+            if (categories == null)
+            {
+                return NotFound();
+            }
+            return Ok(categories);
+        }
+
+        [HttpGet("brands")]
+        public async Task<IActionResult> GetProductsBrands()
+        {
+            var products = await _repo.GetAllProductsBrands();
+
+            if (products == null)
+            {
+                return NotFound();
+            }
+            return Ok(products);
+        }
 
         [HttpGet]
         public async Task<IActionResult> GetProducts()

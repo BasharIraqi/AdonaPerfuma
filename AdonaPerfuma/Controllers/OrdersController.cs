@@ -15,6 +15,16 @@ namespace AdonaPerfuma.Controllers
         {
             _repo = repo;
         }
+        [HttpGet("customerOrders/{id}")]
+        public async Task<IActionResult> GetAllCustomerOrders(int id)
+        {
+          var orders = await _repo.GetAllOrders();
+            if(orders!=null)
+            {
+                return Ok(orders);
+            }
+            return NotFound();
+        }
 
         [HttpGet]
        // [Authorize(Roles = "Admin,Manager,General")]

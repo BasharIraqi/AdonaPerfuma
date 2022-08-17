@@ -3,6 +3,7 @@ using AdonaPerfuma.Interfaces;
 using AdonaPerfuma.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace AdonaPerfuma.Repositories
@@ -15,6 +16,7 @@ namespace AdonaPerfuma.Repositories
         {
             _context = context;
         }
+
 
         public async Task<List<Order>> GetAllOrders()
         {
@@ -71,6 +73,20 @@ namespace AdonaPerfuma.Repositories
             await _context.Orders.AddAsync(order);
             await _context.SaveChangesAsync();
             return order.Id;
+        }
+
+        public async Task<List<Order>> GetAllCustomerOrders(int id)
+        {
+            var orders = await _context.Orders.Where(order=>order.Customer.User.Id==id).ToListAsync();
+
+            if(orders!=null)
+            {
+                return orders;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

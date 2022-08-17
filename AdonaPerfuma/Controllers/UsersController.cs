@@ -20,23 +20,23 @@ namespace AdonaPerfuma.Controllers
         [HttpPost]
         public async Task<IActionResult> SetUser([FromBody] User user)
         {
-            var res =await _repo.SetUser(user);
+            var res =await _repo.AddUser(user);
            
-            if(res!=null)
+            if(res)
             {
                 return Ok();
             }
             return NotFound();
         }
-        [HttpGet]
-        public async Task<IActionResult> GetUser([FromQuery] string email, [FromQuery] string password)
+        [HttpGet("{email}/{password}")]
+        public async Task<IActionResult> GetUser([FromRoute] string email, [FromRoute] string password)
         {
             var get = await _repo.GetUser(email,password);
             if (get!=null)
             {
                 return Ok(get);
             }
-            return Unauthorized();
+            return Unauthorized(new User());
         }
       
     }
