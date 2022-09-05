@@ -17,7 +17,7 @@ namespace AdonaPerfuma.Repositories
 
         public async Task<bool> AddUser(User user)
         {
-            var check = await _context.Users.FindAsync(user);
+            var check =await GetUser(user.Email);
 
             if(check == null)
             {
@@ -41,9 +41,9 @@ namespace AdonaPerfuma.Repositories
             return true;
         }
 
-        public async Task<User> GetUser(string email, string password)
+        public async Task<User> GetUser(string email)
         {
-            var find = await _context.Users.FirstOrDefaultAsync(u => u.Email == email && u.Password == password);
+            var find = await _context.Users.FirstOrDefaultAsync(u => u.Email == email );
             if (find != null)
             {
                 return find;

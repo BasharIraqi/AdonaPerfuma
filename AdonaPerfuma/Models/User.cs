@@ -1,4 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Http;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
+using System.IO;
 
 namespace AdonaPerfuma.Models
 {
@@ -21,15 +26,18 @@ namespace AdonaPerfuma.Models
         public string Email { get; set; }
 
         [Required]
-        [Range(8,16)]
+        [MinLength(8),MaxLength(16)]
         public string Password { get; set; }
 
         [Required]
-        [Range(8, 16)]
+        [MinLength(8),MaxLength(16)]
         public string ConfirmPassword { get; set; }
 
         [Required]
         public Roles Role { get; set; }
+
+        
+
     }
 
     public enum Roles

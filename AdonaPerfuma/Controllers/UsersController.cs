@@ -1,6 +1,8 @@
 ﻿using AdonaPerfuma.Interfaces;
 using AdonaPerfuma.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace AdonaPerfuma.Controllers
@@ -20,23 +22,27 @@ namespace AdonaPerfuma.Controllers
         [HttpPost]
         public async Task<IActionResult> SetUser([FromBody] User user)
         {
-            var res =await _repo.AddUser(user);
-           
-            if(res)
-            {
-                return Ok();
-            }
-            return NotFound();
+    
+         
+             var res =await _repo.AddUser(user); 
+                if(res)
+                {
+                return Ok(user);
+                }
+            
+          
+                return BadRequest();
+
         }
-        [HttpGet("{email}/{password}")]
-        public async Task<IActionResult> GetUser([FromRoute] string email, [FromRoute] string password)
+        [HttpGet("{email}")]
+        public async Task<IActionResult> GetUser([FromRoute] string email)
         {
-            var get = await _repo.GetUser(email,password);
+            var get = await _repo.GetUser(email);
             if (get!=null)
             {
                 return Ok(get);
             }
-            return Unauthorized(new User());
+            return Unauthorized();
         }
       
     }
