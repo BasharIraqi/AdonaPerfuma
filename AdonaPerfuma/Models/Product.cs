@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace AdonaPerfuma.Models
 {
@@ -28,7 +30,13 @@ namespace AdonaPerfuma.Models
         [Required]
         public double Price { get; set; }
 
+        [Required]
         public Categories Category { get; set; }
+
+        [Required]
+        public string Review { get; set; }
+
+        public  List<Order> orders{ get; set; }
 
     }
 
