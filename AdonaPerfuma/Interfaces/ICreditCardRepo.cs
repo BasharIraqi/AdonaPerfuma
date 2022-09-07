@@ -8,10 +8,10 @@ namespace AdonaPerfuma.Interfaces
     {
         Task<List<CreditCard>> GetAllCards();
 
-        Task<CreditCard> GetCreditCardByNumber(int number);
+        Task<CreditCard> GetCreditCardByNumber(long number);
 
-        Task<int> AddCreditCard(CreditCard creditCard);
+        Task<long> AddCreditCard(CreditCard creditCard);
 
-        Task DeleteCreditCard(int id);
+        Task DeleteCreditCard(long id);
     }
 }

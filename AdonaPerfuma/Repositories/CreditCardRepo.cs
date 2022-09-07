@@ -16,14 +16,14 @@ namespace AdonaPerfuma.Repositories
         {
             _context = context;
         }
-        public async Task<int> AddCreditCard(CreditCard creditCard)
+        public async Task<long> AddCreditCard(CreditCard creditCard)
         {
             await _context.CreditCards.AddAsync(creditCard);
             await _context.SaveChangesAsync();
             return creditCard.Number;
         }
 
-        public async Task DeleteCreditCard(int id)
+        public async Task DeleteCreditCard(long id)
         {
             var creditCard =await _context.CreditCards.FindAsync(id);
             if (creditCard != null)
@@ -39,7 +39,7 @@ namespace AdonaPerfuma.Repositories
             return creditCards;
         }
 
-        public async Task<CreditCard> GetCreditCardByNumber(int number)
+        public async Task<CreditCard> GetCreditCardByNumber(long number)
         {
             var creditCard = await _context.CreditCards.FindAsync(number);
             if (creditCard != null)

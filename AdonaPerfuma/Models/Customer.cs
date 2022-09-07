@@ -27,7 +27,7 @@ namespace AdonaPerfuma.Models
         public int PhoneNumber { get; set; }
 
         [Required]
-        public CreditCard Payment { get; set; }
+        public CreditCard CreditCard { get; set; }
 
         [Required]
         public Address Address { get; set; }

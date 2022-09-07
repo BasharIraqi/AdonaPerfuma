@@ -67,7 +67,7 @@ namespace AdonaPerfuma.Repositories
                 customer.PhoneNumber = modifiedCustomer.PhoneNumber;
                 customer.Address = modifiedCustomer.Address;
                 customer.Orders = modifiedCustomer.Orders;
-                customer.Payment = modifiedCustomer.Payment;
+                customer.CreditCard = modifiedCustomer.CreditCard;
                 customer.User = modifiedCustomer.User;
 
                 _context.Customers.Update(customer);

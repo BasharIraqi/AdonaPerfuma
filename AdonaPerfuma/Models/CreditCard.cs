@@ -9,7 +9,7 @@ namespace AdonaPerfuma.Models
         [Required]
         [CreditCard]
         [Key]
-        public int Number { get; set; }
+        public long Number { get; set; }
 
         [Required]
         public string FirstName { get; set; }

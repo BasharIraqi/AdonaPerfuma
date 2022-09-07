@@ -24,13 +24,13 @@ namespace AdonaPerfuma.Controllers
             return Ok(cards);
         }
         [HttpGet("{cardNumber}")]
-        public async Task<IActionResult> GetCard([FromRoute] int cardNumber)
+        public async Task<IActionResult> GetCard([FromRoute] long cardNumber)
         {
             var card = await _repo.GetCreditCardByNumber(cardNumber);
             return Ok(card);
         }
         [HttpDelete("{cardNmber}")]
-        public async Task<IActionResult> DeleteCard(int cardNmber)
+        public async Task<IActionResult> DeleteCard(long cardNmber)
         {
            await _repo.DeleteCreditCard(cardNmber);
             return Ok();
