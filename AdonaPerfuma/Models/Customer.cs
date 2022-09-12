@@ -7,7 +7,6 @@ namespace AdonaPerfuma.Models
     public class Customer
     {
         [Required]
-        [Range(9,9)]
         public int Id { get; set; }
         
         [Required]
@@ -27,12 +26,12 @@ namespace AdonaPerfuma.Models
         public int PhoneNumber { get; set; }
 
         [Required]
-        public List<CreditCard> CreditCard { get; set; }
+        public CreditCard CreditCard { get; set; }
 
         [Required]
         public Address Address { get; set; }
 
-        [AllowNull]
+        [Required]
         public User User { get; set; }
     }
 }

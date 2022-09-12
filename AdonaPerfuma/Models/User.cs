@@ -1,9 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Diagnostics.CodeAnalysis;
-using System.IO;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace AdonaPerfuma.Models
 {
@@ -12,6 +7,7 @@ namespace AdonaPerfuma.Models
         [Required]
         [Key]
         public int Id { get; set; }
+
         [Required]
         [MaxLength(50)]
         public string FirstName { get; set; }
@@ -36,7 +32,7 @@ namespace AdonaPerfuma.Models
         [Required]
         public Roles Role { get; set; }
 
-        
+        public Image Image { get; set; }
 
     }
 

@@ -1,8 +1,10 @@
 ﻿using AdonaPerfuma.Interfaces;
 using AdonaPerfuma.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Net.Http;
+using Microsoft.Net.Http.Headers;
+using System;
+using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace AdonaPerfuma.Controllers
@@ -17,33 +19,60 @@ namespace AdonaPerfuma.Controllers
         public UsersController(IUserRepo repo)
         {
             _repo = repo;
+
         }
 
         [HttpPost]
         public async Task<IActionResult> SetUser([FromBody] User user)
         {
     
-         
-             var res =await _repo.AddUser(user); 
-                if(res)
-                {
+
+            var res = await _repo.AddUser(user);
+            if (res)
+            {
                 return Ok(user);
-                }
-            
-          
-                return BadRequest();
+            }
+
+
+            return BadRequest();
 
         }
         [HttpGet("{email}")]
         public async Task<IActionResult> GetUser([FromRoute] string email)
         {
-            var get = await _repo.GetUser(email);
-            if (get!=null)
+            var user = await _repo.GetUser(email);
+            if (user!=null)
             {
-                return Ok(get);
+                return Ok(user);
             }
             return Unauthorized();
         }
-      
+
+        [HttpPost("upload"),DisableRequestSizeLimit]
+        public async Task<IActionResult> Upload()
+        {
+                var formCollection = await Request.ReadFormAsync();
+                var file = formCollection.Files.First();
+                var folderName = Path.Combine("Resources", "Images");
+                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+                if (file.Length > 0)
+                {
+                    var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim().ToString();
+                    var fullPath = Path.Combine(pathToSave, fileName);
+                    var dbPath = Path.Combine(folderName, fileName);
+                    using (var stream = new FileStream(fullPath, FileMode.Create))
+                    {
+                        file.CopyTo(stream);
+                    }
+                    return Ok(new { dbPath });
+                }
+                else
+                {
+                    return BadRequest();
+                }
+           
+        }
+
+
     }
 }

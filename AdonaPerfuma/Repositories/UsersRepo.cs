@@ -69,6 +69,7 @@ namespace AdonaPerfuma.Repositories
                user.Password = modifiedUser.Password;
                user.ConfirmPassword=modifiedUser.ConfirmPassword;
                user.Role=modifiedUser.Role;
+                user.Image.Path = modifiedUser.Image.Path; 
 
                  _context.Users.Update(user);
                 await _context.SaveChangesAsync();
