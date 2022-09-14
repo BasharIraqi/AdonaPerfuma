@@ -21,22 +21,26 @@ namespace AdonaPerfuma.Controllers
             _repo = repo;
 
         }
+        [HttpGet("GetImage/{id}")]
+        public async Task<IActionResult> GetImage([FromRoute] int id)
+        {
+            var image = await _repo.GetImage(id);
+            if(image == null)
+                return NotFound();
+            return Ok(image);
+        }
 
         [HttpPost]
         public async Task<IActionResult> SetUser([FromBody] User user)
         {
-    
-
             var res = await _repo.AddUser(user);
             if (res)
             {
                 return Ok(user);
             }
-
-
             return BadRequest();
-
         }
+
         [HttpGet("{email}")]
         public async Task<IActionResult> GetUser([FromRoute] string email)
         {
@@ -62,7 +66,7 @@ namespace AdonaPerfuma.Controllers
                     var dbPath = Path.Combine(folderName, fileName);
                     using (var stream = new FileStream(fullPath, FileMode.Create))
                     {
-                        file.CopyTo(stream);
+                     await  file.CopyToAsync(stream);
                     }
                     return Ok(new { dbPath });
                 }

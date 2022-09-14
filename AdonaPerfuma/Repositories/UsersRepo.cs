@@ -14,7 +14,6 @@ namespace AdonaPerfuma.Repositories
         {
             _context = context;
         }
-
         public async Task<bool> AddUser(User user)
         {
             var check =await GetUser(user.Email);
@@ -39,6 +38,17 @@ namespace AdonaPerfuma.Repositories
             _context.Users.Remove(user);
             await _context.SaveChangesAsync();
             return true;
+        }
+
+        public async Task<Image> GetImage(int id)
+        {
+           var getImage=await _context.Image.FindAsync(id);
+
+            if(getImage==null)
+            {
+                return null;
+            }
+            return getImage;
         }
 
         public async Task<User> GetUser(string email)
@@ -69,7 +79,7 @@ namespace AdonaPerfuma.Repositories
                user.Password = modifiedUser.Password;
                user.ConfirmPassword=modifiedUser.ConfirmPassword;
                user.Role=modifiedUser.Role;
-                user.Image.Path = modifiedUser.Image.Path; 
+               user.Image.Path = modifiedUser.Image.Path; 
 
                  _context.Users.Update(user);
                 await _context.SaveChangesAsync();
