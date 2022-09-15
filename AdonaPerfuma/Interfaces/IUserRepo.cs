@@ -11,6 +11,5 @@ namespace AdonaPerfuma.Interfaces
         Task<bool> AddUser(User user);
         Task<bool> UpdateUser(int id,User user);
         Task<bool> DeleteUser(string email);
-        Task<Image> GetImage(int id);
     }
 }

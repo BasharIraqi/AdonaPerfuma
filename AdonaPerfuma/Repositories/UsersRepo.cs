@@ -3,6 +3,7 @@ using AdonaPerfuma.Interfaces;
 using AdonaPerfuma.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace AdonaPerfuma.Repositories
@@ -16,11 +17,11 @@ namespace AdonaPerfuma.Repositories
         }
         public async Task<bool> AddUser(User user)
         {
-            var check =await GetUser(user.Email);
+            var check = await GetUser(user.Email);
 
-            if(check == null)
+            if (check == null)
             {
-                 await _context.Users.AddAsync(user);
+                await _context.Users.AddAsync(user);
                  await _context.SaveChangesAsync();
                 return true;
             }
@@ -29,7 +30,7 @@ namespace AdonaPerfuma.Repositories
 
         public async Task<bool> DeleteUser(string email)
         {
-            var user=await _context.Users.FindAsync(email);
+            var user = await GetUser(email);
 
             if(user==null)
             {
@@ -40,23 +41,13 @@ namespace AdonaPerfuma.Repositories
             return true;
         }
 
-        public async Task<Image> GetImage(int id)
-        {
-           var getImage=await _context.Image.FindAsync(id);
-
-            if(getImage==null)
-            {
-                return null;
-            }
-            return getImage;
-        }
-
         public async Task<User> GetUser(string email)
         {
-            var find = await _context.Users.FirstOrDefaultAsync(u => u.Email == email );
-            if (find != null)
+             var user = await _context.Users.FirstOrDefaultAsync(user=>user.Email==email);
+            
+            if (user != null)
             {
-                return find;
+                return user;
             }
             return null;
         }
@@ -79,7 +70,6 @@ namespace AdonaPerfuma.Repositories
                user.Password = modifiedUser.Password;
                user.ConfirmPassword=modifiedUser.ConfirmPassword;
                user.Role=modifiedUser.Role;
-               user.Image.Path = modifiedUser.Image.Path; 
 
                  _context.Users.Update(user);
                 await _context.SaveChangesAsync();

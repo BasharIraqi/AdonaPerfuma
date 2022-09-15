@@ -2,7 +2,6 @@
 using AdonaPerfuma.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Net.Http.Headers;
-using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,14 +19,6 @@ namespace AdonaPerfuma.Controllers
         {
             _repo = repo;
 
-        }
-        [HttpGet("GetImage/{id}")]
-        public async Task<IActionResult> GetImage([FromRoute] int id)
-        {
-            var image = await _repo.GetImage(id);
-            if(image == null)
-                return NotFound();
-            return Ok(image);
         }
 
         [HttpPost]
@@ -52,6 +43,17 @@ namespace AdonaPerfuma.Controllers
             return Unauthorized();
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetUsers()
+        {
+            var users = await _repo.GetUsers();
+            if (users != null)
+            {
+                return Ok(users);
+            }
+            return NotFound();
+        }
+
         [HttpPost("upload"),DisableRequestSizeLimit]
         public async Task<IActionResult> Upload()
         {
@@ -68,7 +70,8 @@ namespace AdonaPerfuma.Controllers
                     {
                      await  file.CopyToAsync(stream);
                     }
-                    return Ok(new { dbPath });
+
+                    return Ok(new {dbPath});
                 }
                 else
                 {

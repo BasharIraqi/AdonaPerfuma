@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace AdonaPerfuma.Models
 {
@@ -32,7 +33,8 @@ namespace AdonaPerfuma.Models
         [Required]
         public Roles Role { get; set; }
 
-        public Image Image { get; set; }
+        [AllowNull]
+        public string ImagePath { get; set; }
 
     }
 

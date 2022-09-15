@@ -216,22 +216,6 @@ namespace AdonaPerfuma.Migrations
                     b.ToTable("Employees");
                 });
 
-            modelBuilder.Entity("AdonaPerfuma.Models.Image", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Path")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Image");
-                });
-
             modelBuilder.Entity("AdonaPerfuma.Models.Order", b =>
                 {
                     b.Property<int>("Id")
@@ -323,8 +307,8 @@ namespace AdonaPerfuma.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int?>("ImageId")
-                        .HasColumnType("int");
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -340,8 +324,6 @@ namespace AdonaPerfuma.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ImageId");
 
                     b.ToTable("Users");
                 });
@@ -412,15 +394,6 @@ namespace AdonaPerfuma.Migrations
                         .IsRequired();
 
                     b.Navigation("Customer");
-                });
-
-            modelBuilder.Entity("AdonaPerfuma.Models.User", b =>
-                {
-                    b.HasOne("AdonaPerfuma.Models.Image", "Image")
-                        .WithMany()
-                        .HasForeignKey("ImageId");
-
-                    b.Navigation("Image");
                 });
 
             modelBuilder.Entity("OrderProduct", b =>
