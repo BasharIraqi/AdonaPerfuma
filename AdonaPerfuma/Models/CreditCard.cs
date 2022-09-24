@@ -1,14 +1,14 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 
 namespace AdonaPerfuma.Models
 {
     public class CreditCard
     {
-        [Required]
-        [CreditCard]
         [Key]
+        public int Id { get; set; }
+
+        [Required]
         public long Number { get; set; }
 
         [Required]
@@ -21,7 +21,10 @@ namespace AdonaPerfuma.Models
         public int Cvv { get; set; }
 
         [Required]
-        public DateTime ExpiredDate { get; set; }
+        public string ExpiredMonth { get; set; }
+
+        [Required]
+        public string ExpiredYear { get; set; }
 
         [AllowNull]
         public int NumberOfPayments { get; set; }

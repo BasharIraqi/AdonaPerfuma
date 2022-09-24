@@ -6,7 +6,7 @@ namespace AdonaPerfuma.Models
 {
     public class Order
     {
-        [Required]
+        [Key]
         public int Id { get; set; }
 
         [Required]
@@ -18,13 +18,13 @@ namespace AdonaPerfuma.Models
         [Required]
         public int NumberOfProducts { get; set; }
 
-        [DataType(DataType.Currency)]
+        [Required]
         public double PaymentValue { get; set; }
 
-        [DataType(DataType.Date)]
-        public DateTime OrderDate { get; set; }
+        [Required]
+        public string OrderDate { get; set; }
 
-        [DataType(DataType.Date)]
-        public DateTime ArrivalDate { get; set; }
+        [Required]
+        public string ArrivalDate { get; set; }
     }
 }

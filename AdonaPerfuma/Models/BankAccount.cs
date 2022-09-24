@@ -4,7 +4,6 @@ namespace AdonaPerfuma.Models
 {
     public class BankAccount
     {
-        [Required]
         [Key]
         public int AccountNumber { get; set; }
 

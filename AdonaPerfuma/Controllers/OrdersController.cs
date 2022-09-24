@@ -67,7 +67,7 @@ namespace AdonaPerfuma.Controllers
         {
             var id = await _repo.AddOrder(order);
             
-            return CreatedAtAction(nameof(GetOrder), new {id=id,controller="orders"},id);
+           return Ok(id);
 
         }
 

@@ -38,8 +38,9 @@ namespace AdonaPerfuma.Controllers
         [HttpPost]
         public async Task<IActionResult> AddCard(CreditCard card)
         {
-            await _repo.AddCreditCard(card);
-            return Ok();
+          var id= await _repo.AddCreditCard(card);
+
+           return Ok(id);
         }
     }
 }

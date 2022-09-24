@@ -29,7 +29,7 @@ namespace AdonaPerfuma.Controllers
         public async Task<IActionResult> AddAddress(Address address)
         {
             var id= await _repo.AddAddress(address);
-            return CreatedAtAction(nameof(GetAddress), new {id=id,controller="addresses"},id);
+            return Ok(id);
         }
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAddress(int id)

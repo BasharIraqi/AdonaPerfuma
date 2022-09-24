@@ -51,11 +51,11 @@ namespace AdonaPerfuma.Controllers
 
         [HttpPost]
         //[Authorize(Roles = "Admin,Customer,Manager")]
-        public async Task<IActionResult> DeleteCustomer([FromBody] Customer customer)
+        public async Task<IActionResult> AddCustomer([FromBody] Customer customer)
         {
-           var id= await _repo.AddCustomer(customer);
+            await _repo.AddCustomer(customer);
 
-            return CreatedAtAction(nameof(GetCustomer), new { id = id, controller = "customers" }, id);
+            return Ok();
              
         }
     }

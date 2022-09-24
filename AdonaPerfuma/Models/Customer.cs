@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.CodeAnalysis;
 
 namespace AdonaPerfuma.Models
 {
     public class Customer
     {
-        [Required]
+        [Key]
         public int Id { get; set; }
         
         [Required]
@@ -22,8 +21,7 @@ namespace AdonaPerfuma.Models
         public string Email { get; set; }
 
         [Required]
-        [DataType(DataType.PhoneNumber)]
-        public int PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
 
         [Required]
         public CreditCard CreditCard { get; set; }

@@ -10,7 +10,7 @@ namespace AdonaPerfuma.Interfaces
 
         Task<CreditCard> GetCreditCardByNumber(long number);
 
-        Task<long> AddCreditCard(CreditCard creditCard);
+        Task<int> AddCreditCard(CreditCard creditCard);
 
         Task DeleteCreditCard(long id);
     }

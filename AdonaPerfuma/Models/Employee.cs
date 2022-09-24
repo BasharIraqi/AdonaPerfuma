@@ -23,19 +23,15 @@ namespace AdonaPerfuma.Models
         public string Email { get; set; }
 
         [Required]
-        [DataType(DataType.PhoneNumber)]
-        public int PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
 
         [Required]
-        [DataType(DataType.Date)]
         public DateTime BirthDate { get; set; }
 
-        [DataType(DataType.Date)]
         [Required]
-        public DateTime StartedDate { get; set; } = DateTime.Now.Date;
+        public DateTime StartedDate { get; set; }
 
         [AllowNull]
-        [DataType(DataType.Date)]
         public DateTime EndDate { get; set; } 
 
         [Required]
@@ -44,7 +40,7 @@ namespace AdonaPerfuma.Models
         [Required]
         public double SalaryPerHour { get; set; }
 
-        public double Seniority { get { return Seniority; } set {Seniority=(((DateTime.Now.Date-StartedDate.Date).TotalDays)/365); } }
+        public double Seniority { get; set; }
 
         [Required]
         public bool IsActivated { get; set;}

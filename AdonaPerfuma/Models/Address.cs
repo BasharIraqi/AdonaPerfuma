@@ -7,6 +7,7 @@ namespace AdonaPerfuma.Models
     {
         [Key]
         public int Id { get; set; }
+
         [Required]
         public string Country { get; set; }
 

@@ -17,11 +17,10 @@ namespace AdonaPerfuma.Repositories
             _context = context;
         }
 
-        public async Task<int> AddCustomer(Customer customer)
+        public async Task AddCustomer(Customer customer)
         {
             await _context.Customers.AddAsync(customer);
             await _context.SaveChangesAsync();
-            return customer.Id;
         }
 
         public async Task DeleteCustomer(int id)

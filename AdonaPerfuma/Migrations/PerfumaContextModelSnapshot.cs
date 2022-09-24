@@ -81,16 +81,21 @@ namespace AdonaPerfuma.Migrations
 
             modelBuilder.Entity("AdonaPerfuma.Models.CreditCard", b =>
                 {
-                    b.Property<long>("Number")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("Cvv")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("ExpiredDate")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("ExpiredMonth")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ExpiredYear")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -100,10 +105,13 @@ namespace AdonaPerfuma.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<long>("Number")
+                        .HasColumnType("bigint");
+
                     b.Property<int>("NumberOfPayments")
                         .HasColumnType("int");
 
-                    b.HasKey("Number");
+                    b.HasKey("Id");
 
                     b.ToTable("CreditCards");
                 });
@@ -118,8 +126,8 @@ namespace AdonaPerfuma.Migrations
                     b.Property<int?>("AddressId")
                         .HasColumnType("int");
 
-                    b.Property<long?>("CreditCardNumber")
-                        .HasColumnType("bigint");
+                    b.Property<int?>("CreditCardId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -133,8 +141,9 @@ namespace AdonaPerfuma.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PhoneNumber")
-                        .HasColumnType("int");
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
@@ -143,7 +152,7 @@ namespace AdonaPerfuma.Migrations
 
                     b.HasIndex("AddressId");
 
-                    b.HasIndex("CreditCardNumber");
+                    b.HasIndex("CreditCardId");
 
                     b.HasIndex("UserId");
 
@@ -190,8 +199,9 @@ namespace AdonaPerfuma.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PhoneNumber")
-                        .HasColumnType("int");
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("SalaryPerHour")
                         .HasColumnType("float");
@@ -223,8 +233,9 @@ namespace AdonaPerfuma.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("ArrivalDate")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("ArrivalDate")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
@@ -232,8 +243,9 @@ namespace AdonaPerfuma.Migrations
                     b.Property<int>("NumberOfProducts")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("OrderDate")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("OrderDate")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("PaymentValue")
                         .HasColumnType("float");
@@ -351,7 +363,7 @@ namespace AdonaPerfuma.Migrations
 
                     b.HasOne("AdonaPerfuma.Models.CreditCard", "CreditCard")
                         .WithMany()
-                        .HasForeignKey("CreditCardNumber");
+                        .HasForeignKey("CreditCardId");
 
                     b.HasOne("AdonaPerfuma.Models.User", "User")
                         .WithMany()
