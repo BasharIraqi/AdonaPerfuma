@@ -18,12 +18,20 @@ namespace AdonaPerfuma.Repositories
         }
         public async Task<int> AddCreditCard(CreditCard creditCard)
         {
+            var IsCardExist=await _context.CreditCards.FindAsync(creditCard.Number);
+
+            if (IsCardExist == null)
+            {
             await _context.CreditCards.AddAsync(creditCard);
             await _context.SaveChangesAsync();
             return creditCard.Id;
+            }
+
+            else
+            return -1;
         }
 
-        public async Task DeleteCreditCard(long id)
+        public async Task DeleteCreditCard(int id)
         {
             var creditCard =await _context.CreditCards.FindAsync(id);
             if (creditCard != null)

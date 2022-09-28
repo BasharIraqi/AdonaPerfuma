@@ -3,6 +3,7 @@ using AdonaPerfuma.Interfaces;
 using AdonaPerfuma.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace AdonaPerfuma.Repositories
@@ -35,7 +36,7 @@ namespace AdonaPerfuma.Repositories
 
         public async Task<Customer> GetCustomerById(int id)
         {
-            var customer =await _context.Customers.FindAsync(id);
+            var customer =await _context.Customers.SingleOrDefaultAsync(customer=>customer.User.Id==id);
             if (customer != null)
             {
                 return customer;

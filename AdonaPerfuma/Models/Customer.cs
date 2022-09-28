@@ -20,13 +20,13 @@ namespace AdonaPerfuma.Models
         [EmailAddress]
         public string Email { get; set; }
 
-        [Required]
+       
         public string PhoneNumber { get; set; }
 
-        [Required]
+       
         public CreditCard CreditCard { get; set; }
 
-        [Required]
+       
         public Address Address { get; set; }
 
         [Required]

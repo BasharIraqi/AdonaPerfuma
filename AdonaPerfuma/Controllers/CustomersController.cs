@@ -8,11 +8,11 @@ namespace AdonaPerfuma.Controllers
     [Route("api/[controller]")]
     [ApiController]
     
-    public class CustomerController : ControllerBase
+    public class CustomersController : ControllerBase
     {
         private readonly ICustomerRepo _repo;
 
-        public CustomerController(ICustomerRepo repo)
+        public CustomersController(ICustomerRepo repo)
         {
             _repo = repo;
         }

@@ -1,6 +1,7 @@
 ﻿using AdonaPerfuma.DB;
 using AdonaPerfuma.Interfaces;
 using AdonaPerfuma.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
 namespace AdonaPerfuma.Repositories
@@ -16,10 +17,24 @@ namespace AdonaPerfuma.Repositories
 
         public async Task<int> AddAddress(Address address)
         {
-            await _context.Addresses.AddAsync(address);
-            await _context.SaveChangesAsync();
+            var isAddressExist = await _context.Addresses.SingleOrDefaultAsync(a => a.PostalCode == address.PostalCode
+            && a.Country == address.Country
+            && a.HouseNumber == address.HouseNumber
+            && a.City == address.City
+            && a.Street==address.Street);
 
-            return address.Id;
+            if (isAddressExist == null)
+            {
+                await _context.Addresses.AddAsync(address);
+                await _context.SaveChangesAsync();
+
+                return address.Id;
+            }
+
+            else
+            {
+                return -1;
+            }
         }
 
         public async Task DeleteAddress(int id)

@@ -29,10 +29,10 @@ namespace AdonaPerfuma.Controllers
             var card = await _repo.GetCreditCardByNumber(cardNumber);
             return Ok(card);
         }
-        [HttpDelete("{cardNmber}")]
-        public async Task<IActionResult> DeleteCard(long cardNmber)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteCard(int id)
         {
-           await _repo.DeleteCreditCard(cardNmber);
+           await _repo.DeleteCreditCard(id);
             return Ok();
         }
         [HttpPost]
@@ -40,7 +40,11 @@ namespace AdonaPerfuma.Controllers
         {
           var id= await _repo.AddCreditCard(card);
 
+            if(id!=-1)
            return Ok(id);
+
+            else
+                return NoContent();
         }
     }
 }
