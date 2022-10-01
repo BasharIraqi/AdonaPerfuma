@@ -8,12 +8,14 @@ namespace AdonaPerfuma.Interfaces
     {
         Task<List<Customer>> GetCustomers();
 
-        Task<Customer> GetCustomerById(int id);
+        Task<Customer> GetCustomer(int id);
 
         Task AddCustomer(Customer customer);
 
         Task UpdateCustomer(int id, Customer modifiedCustomer);
 
         Task DeleteCustomer(int id);
+
+        Task<Customer> GetCustomerByUserId(int id);
     }
 }

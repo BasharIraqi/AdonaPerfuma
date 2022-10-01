@@ -1,6 +1,8 @@
 ﻿using AdonaPerfuma.Interfaces;
 using AdonaPerfuma.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Numerics;
 using System.Threading.Tasks;
 
 namespace AdonaPerfuma.Controllers

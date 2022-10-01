@@ -64,7 +64,7 @@ namespace AdonaPerfuma.Controllers
 
         [HttpPost]
         //[Authorize(Roles ="Customer")]
-        public async Task<IActionResult> AddOrder([FromBody]Order order)
+        public async Task<IActionResult> AddOrder(Order order)
         {
             var id = await _repo.AddOrder(order);
             

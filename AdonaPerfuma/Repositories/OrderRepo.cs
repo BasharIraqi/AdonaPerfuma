@@ -43,7 +43,6 @@ namespace AdonaPerfuma.Repositories
 
             if (order != null)
             {
-                order.Id = ModfiedOrder.Id;
                 order.NumberOfProducts = ModfiedOrder.NumberOfProducts;
                 order.ArrivalDate = ModfiedOrder.ArrivalDate;
                 order.OrderDate = ModfiedOrder.OrderDate;

@@ -34,9 +34,20 @@ namespace AdonaPerfuma.Repositories
             }
         }
 
-        public async Task<Customer> GetCustomerById(int id)
+        public async Task<Customer> GetCustomer(int id)
         {
-            var customer =await _context.Customers.SingleOrDefaultAsync(customer=>customer.User.Id==id);
+            var customer =await _context.Customers.FindAsync(id);
+            if (customer != null)
+            {
+                return customer;
+            }
+            else
+                return null;
+        }
+
+        public async Task<Customer> GetCustomerByUserId(int id)
+        {
+            var customer = await _context.Customers.SingleOrDefaultAsync(customer => customer.User.Id == id);
             if (customer != null)
             {
                 return customer;

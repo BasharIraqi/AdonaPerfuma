@@ -21,7 +21,7 @@ namespace AdonaPerfuma.Models
         public int HouseNumber { get; set; }
 
         [Required]
-        public string PostalCode { get; set; }
+        public int PostalCode { get; set; }
 
     }
 }

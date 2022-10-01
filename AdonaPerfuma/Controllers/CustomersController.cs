@@ -27,7 +27,7 @@ namespace AdonaPerfuma.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCustomer([FromRoute]int id)
         {
-            var customer = await _repo.GetCustomerById(id);
+            var customer = await _repo.GetCustomer(id);
             return Ok(customer);
         }
 
@@ -58,6 +58,22 @@ namespace AdonaPerfuma.Controllers
             return Ok();
              
         }
+
+        [HttpGet("GetCustomerByUserId/{id}")]
+        //[Authorize(Roles = "Admin,Customer,Manager")]
+        public async Task<IActionResult> GetCustomerByUserId([FromRoute] int id)
+        {
+            var customer = await _repo.GetCustomerByUserId(id);
+
+            if(customer == null)
+            {
+                return NotFound();
+            }
+            return Ok(customer);
+
+        }
+
+
     }
 
 }
