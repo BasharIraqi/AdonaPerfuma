@@ -4,14 +4,16 @@ using AdonaPerfuma.DB;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AdonaPerfuma.Migrations
 {
     [DbContext(typeof(PerfumaContext))]
-    partial class PerfumaContextModelSnapshot : ModelSnapshot
+    [Migration("20221008193827_removeIdFromCustomer")]
+    partial class removeIdFromCustomer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -126,6 +128,9 @@ namespace AdonaPerfuma.Migrations
                         .HasColumnType("int");
 
                     b.Property<int?>("CreditCardId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
                     b.Property<string>("Email")

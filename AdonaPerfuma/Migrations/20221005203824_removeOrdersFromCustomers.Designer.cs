@@ -4,14 +4,16 @@ using AdonaPerfuma.DB;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AdonaPerfuma.Migrations
 {
     [DbContext(typeof(PerfumaContext))]
-    partial class PerfumaContextModelSnapshot : ModelSnapshot
+    [Migration("20221005203824_removeOrdersFromCustomers")]
+    partial class removeOrdersFromCustomers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -235,9 +237,6 @@ namespace AdonaPerfuma.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("CustomerId")
-                        .HasColumnType("int");
-
                     b.Property<int>("NumberOfProducts")
                         .HasColumnType("int");
 
@@ -249,8 +248,6 @@ namespace AdonaPerfuma.Migrations
                         .HasColumnType("float");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CustomerId");
 
                     b.ToTable("Orders");
                 });
@@ -395,15 +392,6 @@ namespace AdonaPerfuma.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("AdonaPerfuma.Models.Order", b =>
-                {
-                    b.HasOne("AdonaPerfuma.Models.Customer", "Customer")
-                        .WithMany("Orders")
-                        .HasForeignKey("CustomerId");
-
-                    b.Navigation("Customer");
-                });
-
             modelBuilder.Entity("OrderProduct", b =>
                 {
                     b.HasOne("AdonaPerfuma.Models.Product", null)
@@ -417,11 +405,6 @@ namespace AdonaPerfuma.Migrations
                         .HasForeignKey("ordersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("AdonaPerfuma.Models.Customer", b =>
-                {
-                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }

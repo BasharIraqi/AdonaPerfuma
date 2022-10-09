@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AdonaPerfuma.Repositories
 {
-    public class OrderRepo :IOrderRepo
+    public class OrderRepo : IOrderRepo
     {
         private readonly PerfumaContext _context;
 
@@ -20,16 +20,16 @@ namespace AdonaPerfuma.Repositories
 
         public async Task<List<Order>> GetAllOrders()
         {
-            var orders =await _context.Orders.ToListAsync();
+            var orders = await _context.Orders.ToListAsync();
 
             return orders;
         }
 
         public async Task<Order> GetOrder(int id)
         {
-            var order= await _context.Orders.FindAsync(id);
-            
-            if(order == null)
+            var order = await _context.Orders.FindAsync(id);
+
+            if (order == null)
             {
                 return null;
             }
@@ -46,10 +46,10 @@ namespace AdonaPerfuma.Repositories
                 order.NumberOfProducts = ModfiedOrder.NumberOfProducts;
                 order.ArrivalDate = ModfiedOrder.ArrivalDate;
                 order.OrderDate = ModfiedOrder.OrderDate;
-                order.NumberOfProducts= ModfiedOrder.NumberOfProducts;
-                order.Customer = ModfiedOrder.Customer;
+                order.NumberOfProducts = ModfiedOrder.NumberOfProducts;
+                //order.Customer = ModfiedOrder.Customer;
                 order.PaymentValue = ModfiedOrder.PaymentValue;
-                order.Products=ModfiedOrder.Products;
+                order.Products = ModfiedOrder.Products;
 
                 _context.Orders.Update(order);
 
@@ -58,7 +58,7 @@ namespace AdonaPerfuma.Repositories
         }
         public async Task DeleteOrder(int id)
         {
-            var order= await _context.Orders.FindAsync(id);
+            var order = await _context.Orders.FindAsync(id);
 
             if (order != null)
             {
@@ -71,14 +71,20 @@ namespace AdonaPerfuma.Repositories
         {
             await _context.Orders.AddAsync(order);
             await _context.SaveChangesAsync();
-            return order.Id;
+
+            if (order.Id > 0)
+            {
+                return order.Id;
+            }
+            else
+                return 0;
         }
 
         public async Task<List<Order>> GetAllCustomerOrders(int id)
         {
-            var orders = await _context.Orders.Where(order=>order.Customer.User.Id==id).ToListAsync();
+            var orders = await _context.Orders.Where(order => order.Customer.User.Id == id).ToListAsync();
 
-            if(orders!=null)
+            if (orders != null)
             {
                 return orders;
             }

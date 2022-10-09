@@ -3,7 +3,6 @@ using AdonaPerfuma.Interfaces;
 using AdonaPerfuma.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace AdonaPerfuma.Repositories
@@ -11,22 +10,30 @@ namespace AdonaPerfuma.Repositories
     public class CustomerRepo : ICustomerRepo
     {
         private readonly PerfumaContext _context;
-    
-    
+
+
         public CustomerRepo(PerfumaContext context)
         {
             _context = context;
         }
 
-        public async Task AddCustomer(Customer customer)
+        public async Task<int> AddCustomer(Customer customer)
         {
-            await _context.Customers.AddAsync(customer);
-            await _context.SaveChangesAsync();
+            var isCustomerExist = await _context.Users.FirstOrDefaultAsync(user=>user.Email==customer.User.Email);
+
+            if (isCustomerExist == null)
+            {
+               await _context.Customers.AddAsync(customer);
+               await _context.SaveChangesAsync();
+                return customer.Id;
+            }
+            else
+                return 0;
         }
 
         public async Task DeleteCustomer(int id)
         {
-            var customer =await _context.Customers.FindAsync(id);
+            var customer = await _context.Customers.FindAsync(id);
             if (customer != null)
             {
                 _context.Customers.Remove(customer);
@@ -36,7 +43,7 @@ namespace AdonaPerfuma.Repositories
 
         public async Task<Customer> GetCustomer(int id)
         {
-            var customer =await _context.Customers.FindAsync(id);
+            var customer = await _context.Customers.FindAsync(id);
             if (customer != null)
             {
                 return customer;
@@ -47,18 +54,19 @@ namespace AdonaPerfuma.Repositories
 
         public async Task<Customer> GetCustomerByUserId(int id)
         {
-            var customer = await _context.Customers.SingleOrDefaultAsync(customer => customer.User.Id == id);
-            if (customer != null)
-            {
-                return customer;
-            }
-            else
-                return null;
+         
+                var customer = await _context.Customers.SingleAsync(customer => customer.User.Id == id);
+                if (customer != null)
+                {
+                    return customer;
+                }
+                else
+                    return null;
         }
 
         public async Task<List<Customer>> GetCustomers()
         {
-            var customers =await _context.Customers.ToListAsync();
+            var customers = await _context.Customers.ToListAsync();
             if (customers != null)
             {
                 return customers;

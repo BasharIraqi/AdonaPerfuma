@@ -7,7 +7,7 @@ namespace AdonaPerfuma.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    
+
     public class CustomersController : ControllerBase
     {
         private readonly ICustomerRepo _repo;
@@ -25,7 +25,7 @@ namespace AdonaPerfuma.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetCustomer([FromRoute]int id)
+        public async Task<IActionResult> GetCustomer([FromRoute] int id)
         {
             var customer = await _repo.GetCustomer(id);
             return Ok(customer);
@@ -53,10 +53,9 @@ namespace AdonaPerfuma.Controllers
         //[Authorize(Roles = "Admin,Customer,Manager")]
         public async Task<IActionResult> AddCustomer([FromBody] Customer customer)
         {
-            await _repo.AddCustomer(customer);
+            var isCustomerExist = await _repo.AddCustomer(customer);
 
-            return Ok();
-             
+            return Ok(isCustomerExist);
         }
 
         [HttpGet("GetCustomerByUserId/{id}")]
@@ -65,7 +64,7 @@ namespace AdonaPerfuma.Controllers
         {
             var customer = await _repo.GetCustomerByUserId(id);
 
-            if(customer == null)
+            if (customer == null)
             {
                 return NotFound();
             }

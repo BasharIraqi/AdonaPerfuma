@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 
 namespace AdonaPerfuma.Models
 {
     public class Product
     {
         [Key]
-        [Range(6, 13)]
         public long Barcode { get; set; }
 
         [Required]

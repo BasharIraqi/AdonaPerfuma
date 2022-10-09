@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace AdonaPerfuma.Models
@@ -9,7 +8,6 @@ namespace AdonaPerfuma.Models
         [Key]
         public int Id { get; set; }
 
-        [Required]
         public Customer Customer { get; set; }
 
         [Required]

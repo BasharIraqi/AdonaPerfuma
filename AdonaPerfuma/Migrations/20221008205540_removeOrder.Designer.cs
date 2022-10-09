@@ -4,14 +4,16 @@ using AdonaPerfuma.DB;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AdonaPerfuma.Migrations
 {
     [DbContext(typeof(PerfumaContext))]
-    partial class PerfumaContextModelSnapshot : ModelSnapshot
+    [Migration("20221008205540_removeOrder")]
+    partial class removeOrder
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -224,37 +226,6 @@ namespace AdonaPerfuma.Migrations
                     b.ToTable("Employees");
                 });
 
-            modelBuilder.Entity("AdonaPerfuma.Models.Order", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ArrivalDate")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("CustomerId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("NumberOfProducts")
-                        .HasColumnType("int");
-
-                    b.Property<string>("OrderDate")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("PaymentValue")
-                        .HasColumnType("float");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CustomerId");
-
-                    b.ToTable("Orders");
-                });
-
             modelBuilder.Entity("AdonaPerfuma.Models.Product", b =>
                 {
                     b.Property<long>("Barcode")
@@ -338,21 +309,6 @@ namespace AdonaPerfuma.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("OrderProduct", b =>
-                {
-                    b.Property<long>("ProductsBarcode")
-                        .HasColumnType("bigint");
-
-                    b.Property<int>("ordersId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ProductsBarcode", "ordersId");
-
-                    b.HasIndex("ordersId");
-
-                    b.ToTable("OrderProduct");
-                });
-
             modelBuilder.Entity("AdonaPerfuma.Models.Customer", b =>
                 {
                     b.HasOne("AdonaPerfuma.Models.Address", "Address")
@@ -393,35 +349,6 @@ namespace AdonaPerfuma.Migrations
                     b.Navigation("BankAccount");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("AdonaPerfuma.Models.Order", b =>
-                {
-                    b.HasOne("AdonaPerfuma.Models.Customer", "Customer")
-                        .WithMany("Orders")
-                        .HasForeignKey("CustomerId");
-
-                    b.Navigation("Customer");
-                });
-
-            modelBuilder.Entity("OrderProduct", b =>
-                {
-                    b.HasOne("AdonaPerfuma.Models.Product", null)
-                        .WithMany()
-                        .HasForeignKey("ProductsBarcode")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("AdonaPerfuma.Models.Order", null)
-                        .WithMany()
-                        .HasForeignKey("ordersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("AdonaPerfuma.Models.Customer", b =>
-                {
-                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }

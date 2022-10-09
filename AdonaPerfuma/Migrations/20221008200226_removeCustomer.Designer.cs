@@ -4,14 +4,16 @@ using AdonaPerfuma.DB;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AdonaPerfuma.Migrations
 {
     [DbContext(typeof(PerfumaContext))]
-    partial class PerfumaContextModelSnapshot : ModelSnapshot
+    [Migration("20221008200226_removeCustomer")]
+    partial class removeCustomer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -115,48 +117,6 @@ namespace AdonaPerfuma.Migrations
                     b.ToTable("CreditCards");
                 });
 
-            modelBuilder.Entity("AdonaPerfuma.Models.Customer", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("AddressId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("CreditCardId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AddressId");
-
-                    b.HasIndex("CreditCardId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Customers");
-                });
-
             modelBuilder.Entity("AdonaPerfuma.Models.Employee", b =>
                 {
                     b.Property<int>("Id")
@@ -235,9 +195,6 @@ namespace AdonaPerfuma.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("CustomerId")
-                        .HasColumnType("int");
-
                     b.Property<int>("NumberOfProducts")
                         .HasColumnType("int");
 
@@ -249,8 +206,6 @@ namespace AdonaPerfuma.Migrations
                         .HasColumnType("float");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CustomerId");
 
                     b.ToTable("Orders");
                 });
@@ -353,27 +308,6 @@ namespace AdonaPerfuma.Migrations
                     b.ToTable("OrderProduct");
                 });
 
-            modelBuilder.Entity("AdonaPerfuma.Models.Customer", b =>
-                {
-                    b.HasOne("AdonaPerfuma.Models.Address", "Address")
-                        .WithMany()
-                        .HasForeignKey("AddressId");
-
-                    b.HasOne("AdonaPerfuma.Models.CreditCard", "CreditCard")
-                        .WithMany()
-                        .HasForeignKey("CreditCardId");
-
-                    b.HasOne("AdonaPerfuma.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("Address");
-
-                    b.Navigation("CreditCard");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("AdonaPerfuma.Models.Employee", b =>
                 {
                     b.HasOne("AdonaPerfuma.Models.Address", "Address")
@@ -395,15 +329,6 @@ namespace AdonaPerfuma.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("AdonaPerfuma.Models.Order", b =>
-                {
-                    b.HasOne("AdonaPerfuma.Models.Customer", "Customer")
-                        .WithMany("Orders")
-                        .HasForeignKey("CustomerId");
-
-                    b.Navigation("Customer");
-                });
-
             modelBuilder.Entity("OrderProduct", b =>
                 {
                     b.HasOne("AdonaPerfuma.Models.Product", null)
@@ -417,11 +342,6 @@ namespace AdonaPerfuma.Migrations
                         .HasForeignKey("ordersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("AdonaPerfuma.Models.Customer", b =>
-                {
-                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }

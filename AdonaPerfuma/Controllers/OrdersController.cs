@@ -1,6 +1,7 @@
 ﻿using AdonaPerfuma.Interfaces;
 using AdonaPerfuma.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
 namespace AdonaPerfuma.Controllers
@@ -67,6 +68,11 @@ namespace AdonaPerfuma.Controllers
         public async Task<IActionResult> AddOrder(Order order)
         {
             var id = await _repo.AddOrder(order);
+
+            if (id == 0) 
+            {
+                return NotFound();
+            }
             
            return Ok(id);
 

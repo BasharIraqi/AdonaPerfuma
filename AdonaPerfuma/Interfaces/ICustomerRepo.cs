@@ -10,7 +10,7 @@ namespace AdonaPerfuma.Interfaces
 
         Task<Customer> GetCustomer(int id);
 
-        Task AddCustomer(Customer customer);
+        Task<int> AddCustomer(Customer customer);
 
         Task UpdateCustomer(int id, Customer modifiedCustomer);
 
