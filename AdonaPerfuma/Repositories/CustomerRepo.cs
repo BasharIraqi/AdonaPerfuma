@@ -3,6 +3,8 @@ using AdonaPerfuma.Interfaces;
 using AdonaPerfuma.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 
 namespace AdonaPerfuma.Repositories
@@ -19,12 +21,12 @@ namespace AdonaPerfuma.Repositories
 
         public async Task<int> AddCustomer(Customer customer)
         {
-            var isCustomerExist = await _context.Users.FirstOrDefaultAsync(user=>user.Email==customer.User.Email);
+            var isCustomerExist = await _context.Users.FirstOrDefaultAsync(user => user.Email == customer.User.Email);
 
             if (isCustomerExist == null)
             {
-               await _context.Customers.AddAsync(customer);
-               await _context.SaveChangesAsync();
+                await _context.Customers.AddAsync(customer);
+                await _context.SaveChangesAsync();
                 return customer.Id;
             }
             else
@@ -52,16 +54,35 @@ namespace AdonaPerfuma.Repositories
                 return null;
         }
 
-        public async Task<Customer> GetCustomerByUserId(int id)
+        public async Task<object> GetCustomerByUserId(int id)
         {
-         
-                var customer = await _context.Customers.SingleAsync(customer => customer.User.Id == id);
-                if (customer != null)
-                {
-                    return customer;
-                }
-                else
-                    return null;
+            var getCustomer = await (from customer in _context.Customers
+                                     join User in _context.Users on customer.User.Id equals User.Id
+                                     join Address in _context.Addresses on customer.Address.Id equals Address.Id
+                                     join CreditCard in _context.CreditCards on customer.CreditCard.Id equals CreditCard.Id
+                                     join Orders in _context.Orders on customer.Id equals Orders.Customer.Id
+                                     where customer.User.Id == id
+                                     select new
+                                     {
+                                         Id = customer.Id,
+                                         FirstName = customer.FirstName,
+                                         LastName = customer.LastName,
+                                         Email = customer.Email,
+                                         Orders = Orders,
+                                         CreditCard = CreditCard,
+                                         Address = Address,
+                                         User = User,
+                                         PhoneNumber = customer.PhoneNumber
+                                     }).FirstOrDefaultAsync();
+
+
+          
+            if (getCustomer != null)
+            {
+                return getCustomer;
+            }
+            else
+                return null;
         }
 
         public async Task<List<Customer>> GetCustomers()

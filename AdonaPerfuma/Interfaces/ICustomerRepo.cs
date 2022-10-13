@@ -16,6 +16,6 @@ namespace AdonaPerfuma.Interfaces
 
         Task DeleteCustomer(int id);
 
-        Task<Customer> GetCustomerByUserId(int id);
+        Task<object> GetCustomerByUserId(int id);
     }
 }
