@@ -20,7 +20,7 @@ namespace AdonaPerfuma.Controllers
         [HttpGet("customerOrders/{id}")]
         public async Task<IActionResult> GetAllCustomerOrders(int id)
         {
-          var orders = await _repo.GetAllOrders();
+          var orders = await _repo.GetAllCustomerOrders(id);
             if(orders!=null)
             {
                 return Ok(orders);

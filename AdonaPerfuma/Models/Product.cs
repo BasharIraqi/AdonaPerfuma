@@ -32,7 +32,9 @@ namespace AdonaPerfuma.Models
         [Required]
         public string Review { get; set; }
 
-        public  List<Order> Orders{ get; set; }
+        public  ICollection<Order> Orders{ get; set; }
+
+        public List<OrderProduct> OrderProducts { get; set; }
 
     }
 

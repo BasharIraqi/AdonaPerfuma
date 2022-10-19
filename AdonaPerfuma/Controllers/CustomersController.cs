@@ -36,6 +36,7 @@ namespace AdonaPerfuma.Controllers
         public async Task<IActionResult> UpdateCustomer([FromRoute] int id, [FromBody] Customer customer)
         {
             await _repo.UpdateCustomer(id, customer);
+
             return Ok();
         }
 

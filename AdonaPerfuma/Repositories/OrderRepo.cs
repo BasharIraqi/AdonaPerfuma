@@ -47,7 +47,7 @@ namespace AdonaPerfuma.Repositories
                 order.ArrivalDate = ModfiedOrder.ArrivalDate;
                 order.OrderDate = ModfiedOrder.OrderDate;
                 order.NumberOfProducts = ModfiedOrder.NumberOfProducts;
-                //order.Customer = ModfiedOrder.Customer;
+                order.Customer = ModfiedOrder.Customer;
                 order.PaymentValue = ModfiedOrder.PaymentValue;
                 order.Products = ModfiedOrder.Products;
 
@@ -80,13 +80,23 @@ namespace AdonaPerfuma.Repositories
                 return 0;
         }
 
-        public async Task<List<Order>> GetAllCustomerOrders(int id)
+        public async Task<object> GetAllCustomerOrders(int id)
         {
-            var orders = await _context.Orders.Where(order => order.Customer.User.Id == id).ToListAsync();
+            var getOrders = await _context.Orders.Where(order=>order.Customer.User.Id==id).ToListAsync();   
+          
 
-            if (orders != null)
+            getOrders.ForEach( order =>
             {
-                return orders;
+                order.Products = (from products in _context.Products
+                                      join OrderProducts in _context.OrderProduct on products.Barcode equals OrderProducts.ProductBarcode
+                                      join Orders in _context.Orders on OrderProducts.OrderId equals order.Id
+                                      select products).Distinct().ToList();
+               
+            });
+
+            if (getOrders != null)
+            {
+                return getOrders;
             }
             else
             {

@@ -4,14 +4,16 @@ using AdonaPerfuma.DB;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AdonaPerfuma.Migrations
 {
     [DbContext(typeof(PerfumaContext))]
-    partial class PerfumaContextModelSnapshot : ModelSnapshot
+    [Migration("20221015184050_addOrdersProducts")]
+    partial class addOrdersProducts
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -260,14 +262,17 @@ namespace AdonaPerfuma.Migrations
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
 
-                    b.Property<long>("ProductBarcode")
+                    b.Property<int>("ProductBarcode")
+                        .HasColumnType("int");
+
+                    b.Property<long?>("ProductBarcode1")
                         .HasColumnType("bigint");
 
                     b.HasKey("OrderId", "ProductBarcode");
 
-                    b.HasIndex("ProductBarcode");
+                    b.HasIndex("ProductBarcode1");
 
-                    b.ToTable("OrderProduct");
+                    b.ToTable("OrdersProducts");
                 });
 
             modelBuilder.Entity("AdonaPerfuma.Models.Product", b =>
@@ -407,16 +412,14 @@ namespace AdonaPerfuma.Migrations
             modelBuilder.Entity("AdonaPerfuma.Models.OrderProduct", b =>
                 {
                     b.HasOne("AdonaPerfuma.Models.Order", "Order")
-                        .WithMany("OrderProduct")
+                        .WithMany("Products")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("AdonaPerfuma.Models.Product", "Product")
-                        .WithMany("OrderProduct")
-                        .HasForeignKey("ProductBarcode")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("Orders")
+                        .HasForeignKey("ProductBarcode1");
 
                     b.Navigation("Order");
 
@@ -430,12 +433,12 @@ namespace AdonaPerfuma.Migrations
 
             modelBuilder.Entity("AdonaPerfuma.Models.Order", b =>
                 {
-                    b.Navigation("OrderProduct");
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("AdonaPerfuma.Models.Product", b =>
                 {
-                    b.Navigation("OrderProduct");
+                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }

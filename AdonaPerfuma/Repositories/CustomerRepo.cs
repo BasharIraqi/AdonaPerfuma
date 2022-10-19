@@ -4,7 +4,6 @@ using AdonaPerfuma.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Threading.Tasks;
 
 namespace AdonaPerfuma.Repositories
@@ -56,6 +55,8 @@ namespace AdonaPerfuma.Repositories
 
         public async Task<object> GetCustomerByUserId(int id)
         {
+
+
             var getCustomer = await (from customer in _context.Customers
                                      join User in _context.Users on customer.User.Id equals User.Id
                                      join Address in _context.Addresses on customer.Address.Id equals Address.Id
@@ -75,14 +76,29 @@ namespace AdonaPerfuma.Repositories
                                          PhoneNumber = customer.PhoneNumber
                                      }).FirstOrDefaultAsync();
 
-
-          
             if (getCustomer != null)
             {
+
                 return getCustomer;
             }
+
+            else if (getCustomer == null)
+            {
+                var customer = await _context.Customers.Where(cus => cus.User.Id == id).FirstOrDefaultAsync();
+                if (customer != null)
+                {
+                    return customer;
+                }
+                else
+                    return null;
+            }
+
             else
                 return null;
+
+
+
+
         }
 
         public async Task<List<Customer>> GetCustomers()
@@ -113,6 +129,7 @@ namespace AdonaPerfuma.Repositories
                 _context.Customers.Update(customer);
                 await _context.SaveChangesAsync();
             }
+
         }
     }
 }

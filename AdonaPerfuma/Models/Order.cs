@@ -10,8 +10,9 @@ namespace AdonaPerfuma.Models
 
         public Customer Customer { get; set; }
 
-        [Required]
-        public List<Product> Products { get; set; }
+        public ICollection<Product> Products { get; set; }
+
+        public List<OrderProduct> OrderProducts { get; set; }
 
         [Required]
         public int NumberOfProducts { get; set; }

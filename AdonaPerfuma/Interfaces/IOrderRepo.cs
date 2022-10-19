@@ -6,7 +6,7 @@ namespace AdonaPerfuma.Interfaces
 {
     public interface IOrderRepo
     {
-        Task<List<Order>> GetAllCustomerOrders(int id);
+        Task<object> GetAllCustomerOrders(int id);
         Task<List<Order>> GetAllOrders();
         Task<Order> GetOrder(int id);
         Task<int> AddOrder(Order order);
