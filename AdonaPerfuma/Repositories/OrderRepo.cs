@@ -37,21 +37,23 @@ namespace AdonaPerfuma.Repositories
 
                 return order;
         }
-        public async Task UpdateOrder(int id, Order ModfiedOrder)
+        public async Task UpdateOrder(int id, Order modifiedOrder)
         {
-            var order = await _context.Orders.FindAsync(id);
+            var getOrder = await (_context.Orders.FindAsync(id));
 
-            if (order != null)
+            if (getOrder != null)
             {
-                order.NumberOfProducts = ModfiedOrder.NumberOfProducts;
-                order.ArrivalDate = ModfiedOrder.ArrivalDate;
-                order.OrderDate = ModfiedOrder.OrderDate;
-                order.NumberOfProducts = ModfiedOrder.NumberOfProducts;
-                order.Customer = ModfiedOrder.Customer;
-                order.PaymentValue = ModfiedOrder.PaymentValue;
-                order.Products = ModfiedOrder.Products;
+                getOrder.NumberOfProducts = modifiedOrder.NumberOfProducts;
+                getOrder.ArrivalDate = modifiedOrder.ArrivalDate;
+                getOrder.OrderDate = modifiedOrder.OrderDate;
+                getOrder.Customer = modifiedOrder.Customer;
+                getOrder.PaymentValue = modifiedOrder.PaymentValue;
+                getOrder.Products = (from products in modifiedOrder.Products
+                                     join orderProducts in _context.OrderProduct on products.Barcode equals orderProducts.ProductBarcode
+                                     join orders in _context.Orders on orderProducts.OrderId equals orders.Id
+                                     select products).ToList();
 
-                _context.Orders.Update(order);
+                _context.Orders.Update(getOrder);
 
                 await _context.SaveChangesAsync();
             }
@@ -82,16 +84,16 @@ namespace AdonaPerfuma.Repositories
 
         public async Task<object> GetAllCustomerOrders(int id)
         {
-            var getOrders = await _context.Orders.Where(order=>order.Customer.User.Id==id).ToListAsync();   
-          
+            var getOrders = await _context.Orders.Where(order => order.Customer.User.Id == id).ToListAsync();
 
-            getOrders.ForEach( order =>
+
+            getOrders.ForEach(order =>
             {
                 order.Products = (from products in _context.Products
-                                      join OrderProducts in _context.OrderProduct on products.Barcode equals OrderProducts.ProductBarcode
-                                      join Orders in _context.Orders on OrderProducts.OrderId equals order.Id
-                                      select products).Distinct().ToList();
-               
+                                  join OrderProducts in _context.OrderProduct on products.Barcode equals OrderProducts.ProductBarcode
+                                  join Orders in _context.Orders on OrderProducts.OrderId equals order.Id
+                                  select products).Distinct().ToList();
+
             });
 
             if (getOrders != null)
