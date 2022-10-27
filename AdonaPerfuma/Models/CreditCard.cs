@@ -12,18 +12,22 @@ namespace AdonaPerfuma.Models
         public long Number { get; set; }
 
         [Required]
+        [MaxLength(30)]
         public string FirstName { get; set; }
 
         [Required]
+        [MaxLength (30)]
         public string LastName { get; set; }
 
         [Required]
         public int Cvv { get; set; }
 
         [Required]
+        [MaxLength(2)]
         public string ExpiredMonth { get; set; }
 
         [Required]
+        [MaxLength(2)]
         public string ExpiredYear { get; set; }
 
         [AllowNull]

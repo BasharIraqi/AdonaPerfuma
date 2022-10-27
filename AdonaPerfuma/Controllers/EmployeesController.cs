@@ -16,7 +16,7 @@ namespace AdonaPerfuma.Controllers
             _repo = repo;
         }
         [HttpGet]
-       // [Authorize(Roles = "Admin,Manager")]
+        // [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> GetAllEmployees()
         {
             var employees = await _repo.GetAllEmployees();
@@ -31,22 +31,36 @@ namespace AdonaPerfuma.Controllers
                 return NotFound();
             return Ok(employee);
         }
+
+
+        [HttpGet("GetEmployeeByUserId/{id}")]
+        //[Authorize(Roles = "Admin,Manager")]
+        public async Task<IActionResult> GetEmployeeByUserId([FromRoute] int id)
+        {
+            var employee = await _repo.GetEmployeeByUserId(id);
+
+            if (employee == null)
+                return Ok(null);
+
+            return Ok(employee);
+        }
+
         [HttpPost]
         //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddEmployee(Employee employee)
         {
             await _repo.AddEmployee(employee);
-            return Ok();
+            return Ok(employee.Id);
         }
         [HttpPut("{id}")]
-       // [Authorize(Roles = "Admin")]
+        // [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateEmployee([FromRoute] int id, [FromBody] Employee ModifiedEmployee)
         {
             await _repo.UpdateEmployee(id, ModifiedEmployee);
             return Ok();
         }
         [HttpDelete("{id}")]
-       // [Authorize(Roles = "Admin")]
+        // [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteEmployee(int id)
         {
             await _repo.DeleteEmployee(id);

@@ -15,5 +15,7 @@ namespace AdonaPerfuma.Interfaces
         Task UpdateEmployee(int id, Employee modifiedEmployee);
 
         Task DeleteEmployee(int id);
+
+        Task<object> GetEmployeeByUserId(int userId);
     }
 }

@@ -9,12 +9,15 @@ namespace AdonaPerfuma.Models
         public int Id { get; set; }
 
         [Required]
+        [MaxLength(30)]
         public string Country { get; set; }
 
         [Required]
+        [MaxLength(30)]
         public string City { get; set; }
 
         [Required]
+        [MaxLength (30)]
         public string Street { get; set; }
 
         [AllowNull]

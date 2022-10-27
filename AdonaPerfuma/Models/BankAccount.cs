@@ -11,16 +11,18 @@ namespace AdonaPerfuma.Models
         public int Id { get; set; }
 
         [Required]
+        [MaxLength(30)]
         public string FirstName { get; set; }
 
         [Required]
+        [MaxLength(30)]
         public string LastName { get; set; }
 
         [Required]
-        public BankCompany BankName { get; set; }
+        public BankCompany Name { get; set; }
 
         [Required]
-        public int BankNumber { get; set; }
+        public int BranchNumber { get; set; }
 
     }
 

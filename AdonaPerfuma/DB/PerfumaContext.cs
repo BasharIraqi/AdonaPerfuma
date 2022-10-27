@@ -1,6 +1,8 @@
 ﻿using AdonaPerfuma.Models;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
+using System.IO;
 
 namespace AdonaPerfuma.DB
 {
@@ -13,6 +15,7 @@ namespace AdonaPerfuma.DB
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
             modelBuilder.Entity<Order>()
             .HasMany(o => o.Products)
             .WithMany(p => p.Orders)
@@ -29,6 +32,11 @@ namespace AdonaPerfuma.DB
                 {
                     j.HasKey(op => new { op.OrderId, op.ProductBarcode });
                 });
+
+            modelBuilder.Entity<User>().HasData(new User() { Id=1,FirstName="Director",LastName="Perfuma",Email = "Director@perfuma.com", Password = "Pddd2022!", ConfirmPassword = "Pddd2022!", Role = Roles.Admin },
+                new User() {Id=2, Email = "Manager@perfuma.com",FirstName="Manager",LastName="Perfuma", Password = "Pmmm987458", ConfirmPassword = "Pmmm987458", Role = Roles.Manager },
+                new User() {Id=3, Email = "General@perfuma.com",FirstName="Employee",LastName="Perfuma", Password = "Pggg7458", ConfirmPassword = "Pggg7458", Role = Roles.General });
+
         }
 
         public DbSet<Address> Addresses { get; set; }
@@ -38,7 +46,7 @@ namespace AdonaPerfuma.DB
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Product> Products { get; set; }
-        public DbSet<User> Users {get; set;}
+        public DbSet<User> Users { get; set; }
         public DbSet<OrderProduct> OrderProduct { get; set; }
 
     }

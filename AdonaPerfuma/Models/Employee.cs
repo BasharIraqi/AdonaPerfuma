@@ -1,6 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace AdonaPerfuma.Models
 {
@@ -10,9 +8,11 @@ namespace AdonaPerfuma.Models
         public int Id { get; set; }
 
         [Required]
+        [MaxLength(30)]
         public string FirstName { get; set; }
 
         [Required]
+        [MaxLength(30)]
         public string LastName { get; set; }
 
         [Required]
@@ -20,24 +20,40 @@ namespace AdonaPerfuma.Models
 
         [Required]
         [EmailAddress]
+        [MaxLength(30)]
         public string Email { get; set; }
 
         [Required]
+        [MaxLength(10)]
         public string PhoneNumber { get; set; }
 
         [Required]
-        public DateTime BirthDate { get; set; }
+        [MaxLength(2)]
+        public string BirthDay { get; set; }
 
         [Required]
-        public DateTime StartedDate { get; set; }
+        [MaxLength(2)]
+        public string BirthMonth { get; set; }
 
-        [AllowNull]
-        public DateTime EndDate { get; set; } 
+        [Required]
+        [MaxLength(4)]
+        public string BirthYear { get; set; }
+
+        [Required]
+        [MaxLength(2)]
+        public string StartedDay { get; set; }
+
+        [Required]
+        [MaxLength(2)]
+        public string StartedMonth { get; set; }
+
+        [Required]
+        [MaxLength(4)]
+        public string StartedYear { get; set; }
 
         [Required]
         public BankAccount BankAccount { get; set; }
 
-        [Required]
         public double SalaryPerHour { get; set; }
 
         public double Seniority { get; set; }
@@ -45,10 +61,8 @@ namespace AdonaPerfuma.Models
         [Required]
         public bool IsActivated { get; set;}
 
-        [Required]
         public JopType JobType { get; set; }
 
-        [Required]
         public User User { get; set; }
 
         [Required]

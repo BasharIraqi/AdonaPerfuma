@@ -54,8 +54,8 @@ namespace AdonaPerfuma.Repositories
             if(bankAccount!=null)
             {
                 bankAccount.AccountNumber = modifiedAccount.AccountNumber;
-                bankAccount.BankNumber = modifiedAccount.BankNumber;
-                bankAccount.BankName = modifiedAccount.BankName;
+                bankAccount.BranchNumber = modifiedAccount.BranchNumber;
+                bankAccount.Name = modifiedAccount.Name;
                 bankAccount.FirstName = modifiedAccount.FirstName;
                 bankAccount.LastName = modifiedAccount.LastName;
 
