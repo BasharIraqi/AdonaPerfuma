@@ -4,7 +4,8 @@ namespace AdonaPerfuma.Models
 {
     public class Employee
     {
-        [Required]
+
+        [Key]
         public int Id { get; set; }
 
         [Required]
@@ -59,7 +60,7 @@ namespace AdonaPerfuma.Models
         public double Seniority { get; set; }
 
         [Required]
-        public bool IsActivated { get; set;}
+        public bool IsActivated { get; set; }
 
         public JopType JobType { get; set; }
 

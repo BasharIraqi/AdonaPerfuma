@@ -50,7 +50,7 @@ namespace AdonaPerfuma.Controllers
         public async Task<IActionResult> AddEmployee(Employee employee)
         {
             await _repo.AddEmployee(employee);
-            return Ok(employee.Id);
+            return Ok();
         }
         [HttpPut("{id}")]
         // [Authorize(Roles = "Admin")]

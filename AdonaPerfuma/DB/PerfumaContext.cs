@@ -1,8 +1,5 @@
 ﻿using AdonaPerfuma.Models;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting;
-using System.IO;
 
 namespace AdonaPerfuma.DB
 {

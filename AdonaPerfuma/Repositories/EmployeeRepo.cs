@@ -17,11 +17,10 @@ namespace AdonaPerfuma.Repositories
             _context = context;
         }
 
-        public async Task<int> AddEmployee(Employee employee)
+        public async Task AddEmployee(Employee employee)
         {
             await _context.Employees.AddAsync(employee);
             await _context.SaveChangesAsync();
-            return employee.Id;
         }
 
         public async Task DeleteEmployee(int id)
@@ -131,7 +130,7 @@ namespace AdonaPerfuma.Repositories
                 employee.StartedDay=modifiedEmployee.StartedDay;
                 employee.StartedMonth=modifiedEmployee.StartedMonth;
                 employee.StartedYear=modifiedEmployee.StartedYear;
-                employee.User = employee.User;
+                employee.User = modifiedEmployee.User;
 
                 _context.Employees.Update(employee);
                 await _context.SaveChangesAsync();

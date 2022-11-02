@@ -10,7 +10,7 @@ namespace AdonaPerfuma.Interfaces
 
         Task<Employee> GetEmployeeById(int id);
 
-        Task<int> AddEmployee(Employee employee);
+        Task AddEmployee(Employee employee);
 
         Task UpdateEmployee(int id, Employee modifiedEmployee);
 
