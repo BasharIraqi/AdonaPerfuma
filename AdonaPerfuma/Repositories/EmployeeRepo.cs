@@ -25,7 +25,7 @@ namespace AdonaPerfuma.Repositories
 
         public async Task DeleteEmployee(int id)
         {
-            var employee =await _context.Employees.FindAsync(id);
+            var employee = await _context.Employees.FindAsync(id);
             if (employee != null)
             {
                 _context.Employees.Remove(employee);
@@ -33,15 +33,45 @@ namespace AdonaPerfuma.Repositories
             }
         }
 
-        public async Task<List<Employee>> GetAllEmployees()
+        public async Task<object> GetAllEmployees()
         {
-            var employees =await _context.Employees.ToListAsync();
-            return employees;
+            var employees = await (from Employees in _context.Employees
+                                   join bankAccount in _context.BankAccounts on Employees.BankAccount.Id equals bankAccount.Id
+                                   join address in _context.Addresses on Employees.Address.Id equals address.Id
+                                   join User in _context.Users on Employees.User.Id equals User.Id
+                                   select new
+                                   {
+                                       Id=Employees.Id,
+                                       FirstName=Employees.FirstName,
+                                       LastName=Employees.LastName,
+                                       BirthDay=Employees.BirthDay,
+                                       BirthMonth=Employees.BirthMonth,
+                                       BirthYear=Employees.BirthYear,
+                                       StartedDay=Employees.StartedDay,
+                                       StartedMonth=Employees.StartedMonth,
+                                       StartedYear=Employees.StartedYear,
+                                       SalaryPerHour=Employees.SalaryPerHour,
+                                       Address=Employees.Address,
+                                       Age=Employees.Age,
+                                       BankAccount=Employees.BankAccount,
+                                       Email=Employees.Email,
+                                       JobType=Employees.JobType,
+                                       Seniority=Employees.Seniority,
+                                       IsActivated=Employees.IsActivated,
+                                       PhoneNumber=Employees.PhoneNumber,
+                                       User=Employees.User,
+                                   }).ToListAsync();
+
+          if(employees!=null)
+            {
+                return employees; 
+            }
+          return null;
         }
 
         public async Task<Employee> GetEmployeeById(int id)
         {
-            var employee =await _context.Employees.FindAsync(id);
+            var employee = await _context.Employees.FindAsync(id);
             if (employee != null)
             {
                 return employee;
@@ -69,16 +99,16 @@ namespace AdonaPerfuma.Repositories
                                          Address = Address,
                                          User = User,
                                          PhoneNumber = employee.PhoneNumber,
-                                         BirthDay= employee.BirthDay,
-                                         BirthMonth =employee.BirthMonth,
-                                         BirthYear=employee.BirthYear,
-                                         StartedDay=employee.StartedDay,
-                                         StartedMonth=employee.StartedMonth,
-                                         StartedYear=employee.StartedYear,
-                                         JobType=employee.JobType,
-                                         Seniority=employee.Seniority,
-                                         Age=employee.Age,
-                                         SalaryPerHour=employee.SalaryPerHour
+                                         BirthDay = employee.BirthDay,
+                                         BirthMonth = employee.BirthMonth,
+                                         BirthYear = employee.BirthYear,
+                                         StartedDay = employee.StartedDay,
+                                         StartedMonth = employee.StartedMonth,
+                                         StartedYear = employee.StartedYear,
+                                         JobType = employee.JobType,
+                                         Seniority = employee.Seniority,
+                                         Age = employee.Age,
+                                         SalaryPerHour = employee.SalaryPerHour
 
                                      }).FirstOrDefaultAsync();
 
@@ -125,11 +155,11 @@ namespace AdonaPerfuma.Repositories
                 employee.BankAccount = modifiedEmployee.BankAccount;
                 employee.IsActivated = modifiedEmployee.IsActivated;
                 employee.BirthDay = modifiedEmployee.BirthDay;
-                employee.BirthMonth=modifiedEmployee.BirthMonth;
+                employee.BirthMonth = modifiedEmployee.BirthMonth;
                 employee.BirthYear = modifiedEmployee.BirthYear;
-                employee.StartedDay=modifiedEmployee.StartedDay;
-                employee.StartedMonth=modifiedEmployee.StartedMonth;
-                employee.StartedYear=modifiedEmployee.StartedYear;
+                employee.StartedDay = modifiedEmployee.StartedDay;
+                employee.StartedMonth = modifiedEmployee.StartedMonth;
+                employee.StartedYear = modifiedEmployee.StartedYear;
                 employee.User = modifiedEmployee.User;
 
                 _context.Employees.Update(employee);

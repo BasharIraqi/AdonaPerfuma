@@ -6,7 +6,7 @@ namespace AdonaPerfuma.Interfaces
 {
     public interface IEmployeeRepo
     {
-        Task<List<Employee>> GetAllEmployees();
+        Task<object> GetAllEmployees();
 
         Task<Employee> GetEmployeeById(int id);
 

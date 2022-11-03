@@ -6,7 +6,7 @@ namespace AdonaPerfuma.Interfaces
 {
     public interface ICustomerRepo
     {
-        Task<List<Customer>> GetCustomers();
+        Task<object> GetCustomers();
 
         Task<Customer> GetCustomer(int id);
 

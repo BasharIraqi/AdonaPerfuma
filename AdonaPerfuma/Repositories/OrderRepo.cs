@@ -2,6 +2,7 @@
 using AdonaPerfuma.Interfaces;
 using AdonaPerfuma.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,11 +19,31 @@ namespace AdonaPerfuma.Repositories
         }
 
 
-        public async Task<List<Order>> GetAllOrders()
+        public async Task<object> GetAllOrders()
         {
-            var orders = await _context.Orders.ToListAsync();
+            var orders = await (from Orders in _context.Orders
+                                join customer in _context.Customers on Orders.Customer.Id equals customer.Id
+                                join OrderProducts in _context.OrderProduct on Orders.Id equals OrderProducts.OrderId
+                                join products in _context.Products on OrderProducts.ProductBarcode equals products.Barcode  
+                                select new
+                                {
+                                    Id=Orders.Id,
+                                    PaymentValue=Orders.PaymentValue,
+                                    ArrivalDate=Orders.ArrivalDate,
+                                    OrderDate=Orders.OrderDate,
+                                    Customer=Orders.Customer,
+                                    NumberOfProducts=Orders.NumberOfProducts,
+                                    Products=Orders.Products
 
-            return orders;
+                                }).ToListAsync();
+
+
+            if(orders!=null)
+            {
+                return orders;
+            }
+
+            return null;
         }
 
         public async Task<Order> GetOrder(int id)

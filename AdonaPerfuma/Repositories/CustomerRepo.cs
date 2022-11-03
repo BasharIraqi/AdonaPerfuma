@@ -4,6 +4,7 @@ using AdonaPerfuma.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 
 namespace AdonaPerfuma.Repositories
@@ -101,9 +102,28 @@ namespace AdonaPerfuma.Repositories
 
         }
 
-        public async Task<List<Customer>> GetCustomers()
+        public async Task<object> GetCustomers()
         {
-            var customers = await _context.Customers.ToListAsync();
+
+            var customers = await (from Customers in _context.Customers
+                                      join orders in _context.Orders on Customers.Id equals orders.Customer.Id
+                                      join address in _context.Addresses on Customers.Address.Id equals address.Id
+                                      join crediCard in _context.CreditCards on Customers.CreditCard.Id equals crediCard.Id
+                                      join user in _context.Users on Customers.User.Id equals user.Id
+                                      select new
+                                      {
+                                          Id=Customers.Id,
+                                          FirstName=Customers.FirstName,
+                                          LastName=Customers.LastName,
+                                          Email=Customers.Email,
+                                          PhoneNumber=Customers.PhoneNumber,
+                                          Orders=orders,
+                                          Address=address,
+                                          CreditCard=crediCard,
+                                          User=user
+
+                                      }).ToListAsync();
+
             if (customers != null)
             {
                 return customers;
