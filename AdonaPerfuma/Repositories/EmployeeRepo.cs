@@ -36,9 +36,7 @@ namespace AdonaPerfuma.Repositories
         public async Task<object> GetAllEmployees()
         {
             var employees = await (from Employees in _context.Employees
-                                   join bankAccount in _context.BankAccounts on Employees.BankAccount.Id equals bankAccount.Id
-                                   join address in _context.Addresses on Employees.Address.Id equals address.Id
-                                   join User in _context.Users on Employees.User.Id equals User.Id
+
                                    select new
                                    {
                                        Id=Employees.Id,

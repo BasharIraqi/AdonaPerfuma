@@ -2,7 +2,6 @@
 using AdonaPerfuma.Interfaces;
 using AdonaPerfuma.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -23,22 +22,21 @@ namespace AdonaPerfuma.Repositories
         {
             var orders = await (from Orders in _context.Orders
                                 join customer in _context.Customers on Orders.Customer.Id equals customer.Id
-                                join OrderProducts in _context.OrderProduct on Orders.Id equals OrderProducts.OrderId
-                                join products in _context.Products on OrderProducts.ProductBarcode equals products.Barcode  
                                 select new
                                 {
-                                    Id=Orders.Id,
-                                    PaymentValue=Orders.PaymentValue,
-                                    ArrivalDate=Orders.ArrivalDate,
-                                    OrderDate=Orders.OrderDate,
-                                    Customer=Orders.Customer,
-                                    NumberOfProducts=Orders.NumberOfProducts,
-                                    Products=Orders.Products
+
+                                    Id = Orders.Id,
+                                    PaymentValue = Orders.PaymentValue,
+                                    ArrivalDate = Orders.ArrivalDate,
+                                    OrderDate = Orders.OrderDate,
+                                    Customer = Orders.Customer,
+                                    NumberOfProducts = Orders.NumberOfProducts,
+                                    Products = Orders.Products
 
                                 }).ToListAsync();
 
 
-            if(orders!=null)
+            if (orders != null)
             {
                 return orders;
             }
@@ -62,7 +60,7 @@ namespace AdonaPerfuma.Repositories
         {
             var getOrder = await (_context.Orders.FindAsync(id));
 
-            
+
             if (getOrder != null)
             {
                 getOrder.NumberOfProducts = modifiedOrder.NumberOfProducts;
@@ -70,12 +68,12 @@ namespace AdonaPerfuma.Repositories
                 getOrder.OrderDate = modifiedOrder.OrderDate;
                 getOrder.Customer = modifiedOrder.Customer;
                 getOrder.PaymentValue = modifiedOrder.PaymentValue;
-                getOrder.Products =(from product in modifiedOrder.Products
-                                   join products in _context.Products on product.Barcode equals products.Barcode
-                                   join orderProducts in _context.OrderProduct on products.Barcode equals orderProducts.ProductBarcode
-                                   join orders in _context.Orders on orderProducts.OrderId equals orders.Id
-                                   select products).ToList();
-             
+                getOrder.Products = (from product in modifiedOrder.Products
+                                     join products in _context.Products on product.Barcode equals products.Barcode
+                                     join orderProducts in _context.OrderProduct on products.Barcode equals orderProducts.ProductBarcode
+                                     join orders in _context.Orders on orderProducts.OrderId equals orders.Id
+                                     select products).ToList();
+
                 _context.Orders.Update(getOrder);
 
                 await _context.SaveChangesAsync();

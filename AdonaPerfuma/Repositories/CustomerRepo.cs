@@ -117,7 +117,7 @@ namespace AdonaPerfuma.Repositories
                                           LastName=Customers.LastName,
                                           Email=Customers.Email,
                                           PhoneNumber=Customers.PhoneNumber,
-                                          Orders=orders,
+                                          Orders=Customers.Orders,
                                           Address=address,
                                           CreditCard=crediCard,
                                           User=user
