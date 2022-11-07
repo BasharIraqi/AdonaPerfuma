@@ -83,19 +83,16 @@ namespace AdonaPerfuma.Repositories
 
 
             var getEmployee = await (from employee in _context.Employees
-                                     join User in _context.Users on employee.User.Id equals User.Id
-                                     join Address in _context.Addresses on employee.Address.Id equals Address.Id
-                                     join BankAccount in _context.BankAccounts on employee.BankAccount.Id equals BankAccount.Id
-                                     where employee.User.Id == id
+                                    
                                      select new
                                      {
                                          Id = employee.Id,
                                          FirstName = employee.FirstName,
                                          LastName = employee.LastName,
                                          Email = employee.Email,
-                                         BankAccount = BankAccount,
-                                         Address = Address,
-                                         User = User,
+                                         BankAccount = employee.BankAccount,
+                                         Address = employee.Address,
+                                         User = employee.User,
                                          PhoneNumber = employee.PhoneNumber,
                                          BirthDay = employee.BirthDay,
                                          BirthMonth = employee.BirthMonth,

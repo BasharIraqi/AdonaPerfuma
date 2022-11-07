@@ -21,7 +21,7 @@ namespace AdonaPerfuma.Repositories
         public async Task<object> GetAllOrders()
         {
             var orders = await (from Orders in _context.Orders
-                                join customer in _context.Customers on Orders.Customer.Id equals customer.Id
+                                
                                 select new
                                 {
 

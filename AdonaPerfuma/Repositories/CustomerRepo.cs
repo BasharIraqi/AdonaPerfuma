@@ -59,10 +59,6 @@ namespace AdonaPerfuma.Repositories
 
 
             var getCustomer = await (from customer in _context.Customers
-                                     join User in _context.Users on customer.User.Id equals User.Id
-                                     join Address in _context.Addresses on customer.Address.Id equals Address.Id
-                                     join CreditCard in _context.CreditCards on customer.CreditCard.Id equals CreditCard.Id
-                                     join Orders in _context.Orders on customer.Id equals Orders.Customer.Id
                                      where customer.User.Id == id
                                      select new
                                      {
@@ -70,10 +66,10 @@ namespace AdonaPerfuma.Repositories
                                          FirstName = customer.FirstName,
                                          LastName = customer.LastName,
                                          Email = customer.Email,
-                                         Orders = Orders,
-                                         CreditCard = CreditCard,
-                                         Address = Address,
-                                         User = User,
+                                         Orders = customer.Orders,
+                                         CreditCard = customer.CreditCard,
+                                         Address = customer.Address,
+                                         User = customer.User,
                                          PhoneNumber = customer.PhoneNumber
                                      }).FirstOrDefaultAsync();
 
@@ -106,10 +102,7 @@ namespace AdonaPerfuma.Repositories
         {
 
             var customers = await (from Customers in _context.Customers
-                                      join orders in _context.Orders on Customers.Id equals orders.Customer.Id
-                                      join address in _context.Addresses on Customers.Address.Id equals address.Id
-                                      join crediCard in _context.CreditCards on Customers.CreditCard.Id equals crediCard.Id
-                                      join user in _context.Users on Customers.User.Id equals user.Id
+                                    
                                       select new
                                       {
                                           Id=Customers.Id,
@@ -118,9 +111,9 @@ namespace AdonaPerfuma.Repositories
                                           Email=Customers.Email,
                                           PhoneNumber=Customers.PhoneNumber,
                                           Orders=Customers.Orders,
-                                          Address=address,
-                                          CreditCard=crediCard,
-                                          User=user
+                                          Address= Customers.Address,
+                                          CreditCard=Customers.CreditCard,
+                                          User=Customers.User
 
                                       }).ToListAsync();
 
