@@ -34,6 +34,7 @@ namespace AdonaPerfuma.Controllers
             var employee = await _repo.GetEmployeeById(id);
 
             if (employee == null)
+
                 return NotFound();
 
             return Ok(employee);
@@ -41,13 +42,13 @@ namespace AdonaPerfuma.Controllers
 
 
         [HttpGet("GetEmployeeByUserId/{id}")]
-      
+
         public async Task<IActionResult> GetEmployeeByUserId([FromRoute] int id)
         {
             var employee = await _repo.GetEmployeeByUserId(id);
 
             if (employee == null)
-                return Ok(null);
+                return NotFound();
 
             return Ok(employee);
         }
@@ -60,13 +61,13 @@ namespace AdonaPerfuma.Controllers
         }
 
         [HttpPut("{id}")]
-   
+
         public async Task<IActionResult> UpdateEmployee([FromRoute] int id, [FromBody] Employee ModifiedEmployee)
         {
             await _repo.UpdateEmployee(id, ModifiedEmployee);
             return Ok();
         }
-        
+
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteEmployee(int id)
