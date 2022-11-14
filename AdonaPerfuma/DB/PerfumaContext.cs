@@ -30,10 +30,15 @@ namespace AdonaPerfuma.DB
                     j.HasKey(op => new { op.OrderId, op.ProductBarcode });
                 });
 
-            modelBuilder.Entity<User>().HasData(new User() { Id=1,FirstName="Director",LastName="Perfuma",Email = "Director@perfuma.com", Password = "Pddd2022!", ConfirmPassword = "Pddd2022!", Role = Roles.Admin },
-                new User() {Id=2, Email = "Manager@perfuma.com",FirstName="Manager",LastName="Perfuma", Password = "Pmmm987458", ConfirmPassword = "Pmmm987458", Role = Roles.Manager },
-                new User() {Id=3, Email = "General@perfuma.com",FirstName="Employee",LastName="Perfuma", Password = "Pggg7458", ConfirmPassword = "Pggg7458", Role = Roles.General });
-
+            modelBuilder.Entity<User>().HasData(
+                new User() { Id = 1, FirstName = "Director", LastName = "Perfuma", Email = "Director@perfuma.com", Password = "Pddd2022!", ConfirmPassword = "Pddd2022!", Role = Roles.Admin },
+                new User() { Id = 2, Email = "Manager1@perfuma.com", FirstName = "Manager 1", LastName = "Perfuma", Password = "Pmmm1111@", ConfirmPassword = "Pmmm1111@", Role = Roles.Manager },
+                new User() { Id = 3, Email = "Manager2@perfuma.com", FirstName = "Manager 2", LastName = "Perfuma", Password = "Pmmm2222@", ConfirmPassword = "Pmmm2222@", Role = Roles.Manager },
+                new User() { Id = 4, Email = "Manager3@perfuma.com", FirstName = "Manager 3", LastName = "Perfuma", Password = "Pmmm3333@", ConfirmPassword = "Pmmm3333@", Role = Roles.Manager },
+                new User() { Id = 5, Email = "General1@perfuma.com", FirstName = "Employee 1", LastName = "Perfuma", Password = "Pggg111$", ConfirmPassword = "Pggg111$", Role = Roles.General },
+                new User() { Id = 6, Email = "General2@perfuma.com", FirstName = "Employee 2", LastName = "Perfuma", Password = "Pggg222$", ConfirmPassword = "Pggg222$", Role = Roles.General },
+                new User() { Id = 7, Email = "General3@perfuma.com", FirstName = "Employee 3", LastName = "Perfuma", Password = "Pggg333$", ConfirmPassword = "Pggg333$", Role = Roles.General }
+                );
         }
 
         public DbSet<Address> Addresses { get; set; }

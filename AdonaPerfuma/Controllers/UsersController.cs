@@ -1,5 +1,6 @@
 ﻿using AdonaPerfuma.Interfaces;
 using AdonaPerfuma.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Net.Http.Headers;
 using System.IO;
@@ -8,9 +9,10 @@ using System.Threading.Tasks;
 
 namespace AdonaPerfuma.Controllers
 {
-    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
+
+
     public class UsersController : ControllerBase
     {
         private readonly IUserRepo _repo;
@@ -21,7 +23,9 @@ namespace AdonaPerfuma.Controllers
 
         }
 
+
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> SetUser([FromBody] User user)
         {
             var res = await _repo.AddUser(user);
@@ -32,11 +36,11 @@ namespace AdonaPerfuma.Controllers
             return BadRequest();
         }
 
-        [HttpGet("{email}")]
-        public async Task<IActionResult> GetUser([FromRoute] string email)
+        [HttpGet("{email}/{password}")]
+        public async Task<IActionResult> GetUser([FromRoute] string email,string password)
         {
-            var user = await _repo.GetUser(email);
-            if (user!=null)
+            var user = await _repo.GetUser(email,password);
+            if (user != null)
             {
                 return Ok(user);
             }
@@ -44,6 +48,7 @@ namespace AdonaPerfuma.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetUsers()
         {
             var users = await _repo.GetUsers();
@@ -54,30 +59,30 @@ namespace AdonaPerfuma.Controllers
             return NotFound();
         }
 
-        [HttpPost("upload"),DisableRequestSizeLimit]
+        [HttpPost("upload"), DisableRequestSizeLimit]
         public async Task<IActionResult> Upload()
         {
-                var formCollection = await Request.ReadFormAsync();
-                var file = formCollection.Files.First();
-                var folderName = Path.Combine("Resources", "Images");
-                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
-                if (file.Length > 0)
+            var formCollection = await Request.ReadFormAsync();
+            var file = formCollection.Files.First();
+            var folderName = Path.Combine("Resources", "Images");
+            var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+            if (file.Length > 0)
+            {
+                var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim().ToString();
+                var fullPath = Path.Combine(pathToSave, fileName);
+                var dbPath = Path.Combine(folderName, fileName);
+                using (var stream = new FileStream(fullPath, FileMode.Create))
                 {
-                    var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim().ToString();
-                    var fullPath = Path.Combine(pathToSave, fileName);
-                    var dbPath = Path.Combine(folderName, fileName);
-                    using (var stream = new FileStream(fullPath, FileMode.Create))
-                    {
-                     await  file.CopyToAsync(stream);
-                    }
+                    await file.CopyToAsync(stream);
+                }
 
-                    return Ok(new {dbPath});
-                }
-                else
-                {
-                    return BadRequest();
-                }
-           
+                return Ok(new { dbPath });
+            }
+            else
+            {
+                return BadRequest();
+            }
+
         }
 
 

@@ -1,13 +1,15 @@
 ﻿using AdonaPerfuma.Interfaces;
 using AdonaPerfuma.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
 namespace AdonaPerfuma.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles="Admin,Manager,General,Customer")]
+  
     public class OrdersController : ControllerBase
     {
         private readonly IOrderRepo _repo;
@@ -29,7 +31,7 @@ namespace AdonaPerfuma.Controllers
         }
 
         [HttpGet]
-       // [Authorize(Roles = "Admin,Manager,General")]
+        
         public async  Task<IActionResult> GetOrders()
         {
             var orders = await _repo.GetAllOrders();
@@ -37,7 +39,7 @@ namespace AdonaPerfuma.Controllers
         }
 
         [HttpGet("{id}")]
-        //[Authorize(Roles = "Admin,Manager,General,Customer")]
+      
         public async Task<IActionResult> GetOrder([FromRoute] int id)
         {
             var order = await _repo.GetOrder(id);
@@ -48,7 +50,7 @@ namespace AdonaPerfuma.Controllers
         }
 
         [HttpPut("{id}")]
-        //[Authorize(Roles = "Customer")]
+     
         public async Task<IActionResult> UpdateOrder([FromRoute] int id, [FromBody] Order modifiedOrder)
         {
             await _repo.UpdateOrder(id, modifiedOrder);
@@ -56,7 +58,7 @@ namespace AdonaPerfuma.Controllers
         }
 
         [HttpDelete("{id}")]
-        //[Authorize(Roles ="customer")]
+       
         public async Task<IActionResult> DeleteOrder(int id)
         {
             await _repo.DeleteOrder(id);
@@ -64,7 +66,7 @@ namespace AdonaPerfuma.Controllers
         }
 
         [HttpPost]
-        //[Authorize(Roles ="Customer")]
+       
         public async Task<IActionResult> AddOrder(Order order)
         {
             var id = await _repo.AddOrder(order);

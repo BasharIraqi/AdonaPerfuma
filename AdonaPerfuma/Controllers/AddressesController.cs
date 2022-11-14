@@ -1,5 +1,6 @@
 ﻿using AdonaPerfuma.Interfaces;
 using AdonaPerfuma.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -7,7 +8,6 @@ namespace AdonaPerfuma.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize(Roles ="Admin,Manager")]
     public class AddressesController : ControllerBase
     {
         private readonly IAddressRepo _repo;
@@ -16,7 +16,9 @@ namespace AdonaPerfuma.Controllers
         {
             _repo = repo;
         }
+
         [HttpGet]
+        [Authorize(Roles = "Admin,Manager,General")]
         public async Task<IActionResult> GetAddresses()
         {
             var addresses = await _repo.GetAddresses();
@@ -25,6 +27,7 @@ namespace AdonaPerfuma.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin,Manager,General,Customer")]
         public async Task<IActionResult> GetAddress([FromRoute]int id)
         {
             var address =await _repo.GetAddressById(id);
@@ -33,6 +36,7 @@ namespace AdonaPerfuma.Controllers
             else
                 return Ok(address);
         }
+
         [HttpPost]
         public async Task<IActionResult> AddAddress(Address address)
         {
@@ -43,12 +47,15 @@ namespace AdonaPerfuma.Controllers
 
             return NoContent();
         }
+
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin,Manager,General")]
         public async Task<IActionResult> DeleteAddress(int id)
         {
             await _repo.DeleteAddress(id);
             return Ok();
         }
+
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateAddress([FromRoute] int id, [FromBody] Address modifiedAddress)
         {

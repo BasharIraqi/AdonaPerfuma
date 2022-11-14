@@ -8,7 +8,7 @@ namespace AdonaPerfuma.Interfaces
     {
         Task<object> GetAllEmployees();
 
-        Task<Employee> GetEmployeeById(int id);
+        Task<object> GetEmployeeById(int id);
 
         Task AddEmployee(Employee employee);
 

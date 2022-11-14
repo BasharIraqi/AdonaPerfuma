@@ -21,9 +21,11 @@ namespace AdonaPerfuma.Models
         public double PaymentValue { get; set; }
 
         [Required]
+        [MaxLength(20)]
         public string OrderDate { get; set; }
 
         [Required]
+        [MaxLength(20)]
         public string ArrivalDate { get; set; }
     }
 }

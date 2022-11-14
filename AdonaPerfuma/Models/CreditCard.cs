@@ -9,6 +9,7 @@ namespace AdonaPerfuma.Models
         public int Id { get; set; }
 
         [Required]
+        [MaxLength(16)]
         public long Number { get; set; }
 
         [Required]
@@ -20,6 +21,7 @@ namespace AdonaPerfuma.Models
         public string LastName { get; set; }
 
         [Required]
+        [MaxLength(3)]
         public int Cvv { get; set; }
 
         [Required]

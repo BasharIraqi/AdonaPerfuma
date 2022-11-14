@@ -2,7 +2,13 @@
 using AdonaPerfuma.Interfaces;
 using AdonaPerfuma.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace AdonaPerfuma.Repositories
@@ -10,13 +16,17 @@ namespace AdonaPerfuma.Repositories
     public class UsersRepo : IUserRepo
     {
         private readonly PerfumaContext _context;
+       
+
         public UsersRepo(PerfumaContext context)
         {
             _context = context;
+         
         }
+
         public async Task<bool> AddUser(User user)
         {
-            var check = await GetUser(user.Email);
+            var check = await GetUser(user.Email,user.Password);
 
             if (check == null)
             {
@@ -27,9 +37,9 @@ namespace AdonaPerfuma.Repositories
             return false;
         }
 
-        public async Task<bool> DeleteUser(string email)
+        public async Task<bool> DeleteUser(int id)
         {
-            var user = await GetUser(email);
+            var user = await _context.Users.FindAsync(id);
 
             if(user==null)
             {
@@ -40,9 +50,9 @@ namespace AdonaPerfuma.Repositories
             return true;
         }
 
-        public async Task<User> GetUser(string email)
+        public async Task<User> GetUser(string email,string password)
         {
-             var user = await _context.Users.FirstOrDefaultAsync(user=>user.Email==email);
+             var user = await _context.Users.FirstOrDefaultAsync(user=>user.Email==email && user.Password==password);
             
             if (user != null)
             {

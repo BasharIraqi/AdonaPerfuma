@@ -1,5 +1,6 @@
 ﻿using AdonaPerfuma.Interfaces;
 using AdonaPerfuma.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -61,7 +62,7 @@ namespace AdonaPerfuma.Controllers
         }
 
         [HttpPost]
-        //[Authorize(Roles = "Admin,Manager")]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> AddProduct([FromBody] Product product)
         {
             await _repo.AddProduct(product);
@@ -70,7 +71,7 @@ namespace AdonaPerfuma.Controllers
         }
 
         [HttpPut("{id}")]
-        //[Authorize(Roles = "Admin,Manager")]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> UpdateProduct([FromRoute] long id, [FromBody] Product modifiedProduct)
         {
             await _repo.UpdateProduct(id, modifiedProduct);
@@ -79,7 +80,7 @@ namespace AdonaPerfuma.Controllers
         }
 
         [HttpDelete("{id}")]
-        //[Authorize(Roles = "Admin,Manager")]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> DeleteProduct(long id)
         {
            var product=await _repo.GetProductById(id);

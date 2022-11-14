@@ -1,5 +1,6 @@
 ﻿using AdonaPerfuma.Interfaces;
 using AdonaPerfuma.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -17,7 +18,7 @@ namespace AdonaPerfuma.Controllers
             _repo = repo;
         }
         [HttpGet]
-        //[Authorize(Roles ="Admin,Manager,General")]
+        [Authorize(Roles = "Admin,Manager,General")]
         public async Task<IActionResult> GetAllCustomers()
         {
             var customers = await _repo.GetCustomers();
@@ -25,6 +26,7 @@ namespace AdonaPerfuma.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin,Manager,General,Customer")]
         public async Task<IActionResult> GetCustomer([FromRoute] int id)
         {
             var customer = await _repo.GetCustomer(id);
@@ -32,7 +34,7 @@ namespace AdonaPerfuma.Controllers
         }
 
         [HttpPut("{id}")]
-        //[Authorize(Roles ="Admin,Customer")]
+        [Authorize(Roles = "Admin,Manager,General,Customer")]
         public async Task<IActionResult> UpdateCustomer([FromRoute] int id, [FromBody] Customer customer)
         {
             await _repo.UpdateCustomer(id, customer);
@@ -41,7 +43,7 @@ namespace AdonaPerfuma.Controllers
         }
 
         [HttpDelete("{id}")]
-        //[Authorize(Roles = "Admin,Customer,Manager")]
+        [Authorize(Roles = "Admin,Manager,General")]
         public async Task<IActionResult> DeleteCustomer(int id)
         {
             await _repo.DeleteCustomer(id);
@@ -51,7 +53,7 @@ namespace AdonaPerfuma.Controllers
 
 
         [HttpPost]
-        //[Authorize(Roles = "Admin,Customer,Manager")]
+        
         public async Task<IActionResult> AddCustomer([FromBody] Customer customer)
         {
             var isCustomerExist = await _repo.AddCustomer(customer);
@@ -60,7 +62,7 @@ namespace AdonaPerfuma.Controllers
         }
 
         [HttpGet("GetCustomerByUserId/{id}")]
-        //[Authorize(Roles = "Admin,Customer,Manager")]
+        [Authorize(Roles="Customer")]
         public async Task<IActionResult> GetCustomerByUserId([FromRoute] int id)
         {
             var customer = await _repo.GetCustomerByUserId(id);

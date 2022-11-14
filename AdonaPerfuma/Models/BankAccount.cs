@@ -5,10 +5,12 @@ namespace AdonaPerfuma.Models
     public class BankAccount
     {
         [Key]
+        [MaxLength(6)]
         public int AccountNumber { get; set; }
 
         [Required]
-        public int Id { get; set; }
+        [MaxLength(9)]
+        public int OwnerId { get; set; }
 
         [Required]
         [MaxLength(30)]
@@ -22,6 +24,7 @@ namespace AdonaPerfuma.Models
         public BankCompany Name { get; set; }
 
         [Required]
+        [MaxLength(3)]
         public int BranchNumber { get; set; }
 
     }

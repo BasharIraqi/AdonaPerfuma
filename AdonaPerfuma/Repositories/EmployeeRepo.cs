@@ -2,7 +2,6 @@
 using AdonaPerfuma.Interfaces;
 using AdonaPerfuma.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -67,11 +66,36 @@ namespace AdonaPerfuma.Repositories
           return null;
         }
 
-        public async Task<Employee> GetEmployeeById(int id)
+        public async Task<object> GetEmployeeById(int id)
         {
-            var employee = await _context.Employees.FindAsync(id);
+            var employee = await (from Employee in _context.Employees
+                                  where Employee.Id == id
+                                  select new
+                                  {
+                                      Id = Employee.Id,
+                                      FirstName = Employee.FirstName,
+                                      LastName = Employee.LastName,
+                                      BirthDay = Employee.BirthDay,
+                                      BirthMonth = Employee.BirthMonth,
+                                      BirthYear = Employee.BirthYear,
+                                      StartedDay = Employee.StartedDay,
+                                      StartedMonth = Employee.StartedMonth,
+                                      StartedYear = Employee.StartedYear,
+                                      SalaryPerHour = Employee.SalaryPerHour,
+                                      Address = Employee.Address,
+                                      Age = Employee.Age,
+                                      BankAccount = Employee.BankAccount,
+                                      Email = Employee.Email,
+                                      JobType = Employee.JobType,
+                                      Seniority = Employee.Seniority,
+                                      IsActivated = Employee.IsActivated,
+                                      PhoneNumber = Employee.PhoneNumber,
+                                      User = Employee.User,
+                                  }).FirstOrDefaultAsync();
+
             if (employee != null)
             {
+                
                 return employee;
             }
             else

@@ -33,8 +33,6 @@ namespace AdonaPerfuma
 
 
             services.AddDbContext<PerfumaContext>(options => options.UseSqlServer(Configuration.GetConnectionString("PerfumsDB")));
-             
-            
 
 
             services.AddAuthentication(option =>
@@ -52,10 +50,11 @@ namespace AdonaPerfuma
                         ValidateIssuer = true,
                         ValidateAudience = true,
                         ValidIssuer = Configuration["JWT:ValidIssuer"],
-                        ValidAudience = Configuration["JWT:ValidAudeience"],
+                        ValidAudience = Configuration["JWT:ValidAudience"],
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"]))
                     };
                 });
+
             services.AddControllers().AddNewtonsoftJson();
 
             services.AddSwaggerGen(c =>
@@ -63,6 +62,7 @@ namespace AdonaPerfuma
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "AdonaPerfuma", Version = "v1" });
             });
 
+            services.AddScoped<ILogIn, LogInRepo>();
             services.AddScoped<IProductRepo, ProductRepo>();
             services.AddScoped<IOrderRepo, OrderRepo>();
             services.AddScoped<IAddressRepo, AddressRepo>();
@@ -71,6 +71,8 @@ namespace AdonaPerfuma
             services.AddScoped<ICustomerRepo, CustomerRepo>();
             services.AddScoped<IEmployeeRepo, EmployeeRepo>();
             services.AddScoped<IUserRepo, UsersRepo>();
+           
+
 
 
 

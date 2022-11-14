@@ -1,5 +1,6 @@
 ﻿using AdonaPerfuma.Interfaces;
 using AdonaPerfuma.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -7,7 +8,7 @@ namespace AdonaPerfuma.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize(Roles ="Admin")]
+
     public class BankAccountsController : ControllerBase
     {
         private readonly IBankAccountRepo _repo;
@@ -16,13 +17,17 @@ namespace AdonaPerfuma.Controllers
         {
             _repo = repo;
         }
+
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAccounts()
         {
             var accounts = await _repo.GetAccounts();
             return Ok(accounts);
         }
+
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin,")]
         public async Task<IActionResult> GetAccount([FromRoute] int id)
         {
             var account =await _repo.GetAccountById(id);
@@ -30,13 +35,17 @@ namespace AdonaPerfuma.Controllers
                 return NotFound();
             return Ok(account);  
         }
+
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteAccount(int id)
         {
             await _repo.DeleteAccount(id);
             return Ok();
         }
+
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateAccount([FromRoute] int id, [FromBody] BankAccount ModifiedAccount)
         {
             await _repo.UpdateAccount(id,ModifiedAccount);

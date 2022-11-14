@@ -6,6 +6,7 @@ namespace AdonaPerfuma.Models
     {
 
         [Key]
+        [MaxLength(9)]
         public int Id { get; set; }
 
         [Required]
