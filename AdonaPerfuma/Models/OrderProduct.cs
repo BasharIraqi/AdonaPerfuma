@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace AdonaPerfuma.Models
+﻿namespace AdonaPerfuma.Models
 {
     public class OrderProduct
     {
