@@ -63,7 +63,7 @@ namespace AdonaPerfuma.Controllers
         public async Task<IActionResult> Upload()
         {
             var formCollection = await Request.ReadFormAsync();
-            var file = formCollection.Files.First();
+            var file = formCollection.Files[0];
             var folderName = Path.Combine("Resources", "Images");
             var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
             if (file.Length > 0)

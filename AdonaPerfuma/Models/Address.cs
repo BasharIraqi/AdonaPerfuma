@@ -21,11 +21,11 @@ namespace AdonaPerfuma.Models
         public string Street { get; set; }
 
         [AllowNull]
-        [MaxLength(2)]
+        
         public int HouseNumber { get; set; }
 
         [Required]
-        [MaxLength(7)]
+      
         public int PostalCode { get; set; }
 
     }

@@ -54,6 +54,7 @@ namespace AdonaPerfuma.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles="Admin")]
         public async Task<IActionResult> AddEmployee(Employee employee)
         {
             await _repo.AddEmployee(employee);
@@ -61,7 +62,7 @@ namespace AdonaPerfuma.Controllers
         }
 
         [HttpPut("{id}")]
-
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateEmployee([FromRoute] int id, [FromBody] Employee ModifiedEmployee)
         {
             await _repo.UpdateEmployee(id, ModifiedEmployee);
