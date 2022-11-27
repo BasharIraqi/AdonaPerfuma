@@ -23,6 +23,17 @@ namespace AdonaPerfuma.Controllers
 
         }
 
+        [HttpDelete("{id}")]
+        [Authorize(Roles="Admin")]
+        public async Task<IActionResult> DeleteUser([FromRoute] int id)
+        {
+            var res = await _repo.DeleteUser(id);
+            if (res)
+            {
+                return Ok();
+            }
+            return BadRequest();
+        }
 
         [HttpPost]
         [Authorize(Roles = "Admin")]

@@ -8,12 +8,12 @@ namespace AdonaPerfuma.Interfaces
     {
         Task<List<BankAccount>> GetAccounts();
 
-        Task<BankAccount> GetAccountById(int id);
+        Task<BankAccount> GetAccountById(int number);
 
         Task AddAccount(BankAccount bankAccount);
 
-        Task UpdateAccount(int id,BankAccount modifiedAccount);
+        Task UpdateAccount(int number,BankAccount modifiedAccount);
 
-        Task DeleteAccount(int id);
+        Task DeleteAccount(int number);
     }
 }

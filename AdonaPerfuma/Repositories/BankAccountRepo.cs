@@ -21,9 +21,9 @@ namespace AdonaPerfuma.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteAccount(int id)
+        public async Task DeleteAccount(int number)
         {
-            var bankAccount = await _context.BankAccounts.FindAsync(id);
+            var bankAccount = await _context.BankAccounts.FindAsync(number);
             if (bankAccount != null)
             {
                 _context.BankAccounts.Remove(bankAccount);
@@ -31,9 +31,9 @@ namespace AdonaPerfuma.Repositories
             }
         }
 
-        public async Task<BankAccount> GetAccountById(int id)
+        public async Task<BankAccount> GetAccountById(int number)
         {
-            var bankAccount =await _context.BankAccounts.FindAsync(id);
+            var bankAccount =await _context.BankAccounts.FindAsync(number);
             if (bankAccount != null)
             {
                 return bankAccount;
@@ -48,9 +48,9 @@ namespace AdonaPerfuma.Repositories
             return bankAccounts;
         }
 
-        public async Task UpdateAccount(int id, BankAccount modifiedAccount)
+        public async Task UpdateAccount(int number, BankAccount modifiedAccount)
         {
-            var bankAccount =await _context.BankAccounts.FindAsync(id);
+            var bankAccount =await _context.BankAccounts.FindAsync(number);
             if(bankAccount!=null)
             {
                 bankAccount.AccountNumber = modifiedAccount.AccountNumber;

@@ -26,29 +26,29 @@ namespace AdonaPerfuma.Controllers
             return Ok(accounts);
         }
 
-        [HttpGet("{id}")]
-        [Authorize(Roles = "Admin,")]
-        public async Task<IActionResult> GetAccount([FromRoute] int id)
+        [HttpGet("{number}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetAccount([FromRoute] int number)
         {
-            var account =await _repo.GetAccountById(id);
+            var account =await _repo.GetAccountById(number);
             if(account == null)
                 return NotFound();
             return Ok(account);  
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{number}")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> DeleteAccount(int id)
+        public async Task<IActionResult> DeleteAccount([FromRoute] int number)
         {
-            await _repo.DeleteAccount(id);
+            await _repo.DeleteAccount(number);
             return Ok();
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{number}")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> UpdateAccount([FromRoute] int id, [FromBody] BankAccount ModifiedAccount)
+        public async Task<IActionResult> UpdateAccount([FromRoute] int number, [FromBody] BankAccount ModifiedAccount)
         {
-            await _repo.UpdateAccount(id,ModifiedAccount);
+            await _repo.UpdateAccount(number, ModifiedAccount);
             return Ok();
         }
     }

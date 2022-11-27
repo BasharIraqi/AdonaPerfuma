@@ -49,7 +49,7 @@ namespace AdonaPerfuma.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin,Manager,General")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteAddress(int id)
         {
             await _repo.DeleteAddress(id);

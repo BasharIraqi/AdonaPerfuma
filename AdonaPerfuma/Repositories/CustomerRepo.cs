@@ -19,7 +19,7 @@ namespace AdonaPerfuma.Repositories
 
         public async Task<int> AddCustomer(Customer customer)
         {
-            var isCustomerExist = await _context.Users.FirstOrDefaultAsync(user => user.Email == customer.User.Email);
+            var isCustomerExist = await _context.Users.FirstOrDefaultAsync(user => user.Email == customer.User.Email && user.Password == customer.User.Password);
 
             if (isCustomerExist == null)
             {

@@ -6,7 +6,6 @@ namespace AdonaPerfuma.Models
     public class Product
     {
         [Key]
-        [MaxLength(16)]
         public long Barcode { get; set; }
 
         [Required]

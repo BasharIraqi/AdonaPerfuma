@@ -28,7 +28,7 @@ namespace AdonaPerfuma.Controllers
         }
 
         [HttpGet("{id}")]
-
+        [Authorize(Roles = "Admin,Manager,General")]
         public async Task<IActionResult> GetEmployee([FromRoute] int id)
         {
             var employee = await _repo.GetEmployeeById(id);
@@ -42,6 +42,7 @@ namespace AdonaPerfuma.Controllers
 
 
         [HttpGet("GetEmployeeByUserId/{id}")]
+        [Authorize(Roles = "Admin,Manager,General")]
 
         public async Task<IActionResult> GetEmployeeByUserId([FromRoute] int id)
         {
@@ -54,7 +55,7 @@ namespace AdonaPerfuma.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles="Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddEmployee(Employee employee)
         {
             await _repo.AddEmployee(employee);
